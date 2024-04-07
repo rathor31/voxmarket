@@ -5,6 +5,7 @@ import * as Yup from "yup";
 
 const Login = () => {
   const addUserSchema = Yup.object().shape({});
+  
 
   const addUserForm = useFormik({
     initialValues: {
@@ -12,6 +13,35 @@ const Login = () => {
       password:""
       
     },
+    onSubmit: async(values,action)=>{
+    console.log(values);
+
+      const res = await fetch('http://localhost:5000/user/authenticate', {
+        method: 'POST',
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+
+      });
+      console.log(res.status)
+      action.resetForm();
+
+      if (res.status === 200) {
+        toast.success('Login Successfull')
+        setLoggedIn(true);
+        const data = await res.json();
+        router.post('/seller/dashboard')
+      }
+      else if (res.status === 400
+      ) {
+       toast.error('Some error occured')
+      }
+
+    },
+    
+
+  
 
     
     validationSchema: addUserSchema,
@@ -86,7 +116,7 @@ const Login = () => {
                         value={addUserForm.values.password}
                         autoComplete="current-password"
                         required
-                        className="block w-full rounded-md border-0 py-1.5 px-1.5 text-[#ffffff] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-[#ffffff]"
+                        className="block w-full rounded-md border-0 py-1.5 px-1.5 text-[#000000] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-[#ffffff]"
                       />
                     </div>
                   </div>

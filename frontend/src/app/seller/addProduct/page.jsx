@@ -46,9 +46,9 @@ const Addproduct = () => {
     console.log(file);
 
     const fd = new FormData();
-    fd.append("myfiles", file);
+    fd.append("myfile", file);
 
-    fetch("http://localhost:5000/util/uploadFile", { method: "POST", body: fd })
+    fetch("http://localhost:5000/util/uploadfile", { method: "POST", body: fd })
       .then((response) => {
         if (response.status === 200) {
           toast.success("file Uploaded");
