@@ -40,10 +40,6 @@ const Login = () => {
 
     },
     
-
-  
-
-    
     validationSchema: addUserSchema,
   });
 

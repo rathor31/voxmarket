@@ -27,8 +27,44 @@ const pageDetails = [
     pagePath: '/about'
   },
   {
-    pageName: 'reset password',
-    pagePath: '/reset-password'
+    pageName: 'resetPassword',
+    pagePath: '/resetPassword'
+  },
+  {
+    pageName: 'productView',
+    pagePath: '/productView'
+  },
+  {
+    pageName: ' sellerdashboard',
+    pagePath: '/seller/sellerdashboard'
+  },
+  {
+    pageName: 'addProduct',
+    pagePath: '/seller/addProduct'
+  },
+  {
+    pageName: 'manageProduct',
+    pagePath: '/seller/manageProduct'
+  },
+  {
+    pageName: ' sellersignup',
+    pagePath: '/seller/sellersignup'
+  },
+  {
+    pageName: 'admindashboard',
+    pagePath: '/admin/admindashboard'
+  },
+  {
+    pageName: 'manageuser',
+    pagePath: '/admin/manageuser'
+  },
+  {
+    pageName: 'adminprofile',
+    pagePath: '/admin/adminprofile'
+  },
+  {
+    pageName: 'profile',
+    pagePath: '/user/profile'
   }
 ]
 
@@ -55,12 +91,12 @@ export const VoiceProvider = ({ children }) => {
       }
     },
     {
-      command: 'I want to login',
-      callback: (pageName) => {
-        console.log('Opening page: ', pageName);
-        voicePageNavigator('login')
-      }
-    },
+        command: 'I want to login',
+        callback: (pageName) => {
+          console.log('Opening page: ', pageName);
+          voicePageNavigator('login')
+        }
+      },
     {
       command: 'I want to contact you',
       callback: (pageName) => {
@@ -81,7 +117,112 @@ export const VoiceProvider = ({ children }) => {
       isFuzzyMatch: true,
       fuzzyMatchingThreshold: 0.2,
       bestMatchOnly: true
-    }
+    },
+    {
+        command: 'open manage product page',
+        callback: (pageName) => {
+          console.log('Opening page: ', pageName);
+          voicePageNavigator('manageProduct')
+        }
+    },
+    {
+      command: 'login page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('login')
+      }
+    },
+    {
+      command: 'product view page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('productView')
+      }
+    },
+    {
+      command: 'reset password page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('resetPassword')
+      }
+    },
+    {
+      command: 'contact page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('contact')
+      }
+    },
+    {
+      command: 'reset password page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('resetPassword')
+      }
+    },
+    {
+      command: 'signup page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('signup')
+      }
+    },
+    {
+      command: 'admin dashboard page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('admindashboard')
+      }
+    },
+    {
+      command: 'manage user page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('manageuser')
+      }
+    },
+    {
+      command: 'admin profile page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('adminprofile')
+      }
+    },
+    {
+      command: 'add product page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('addProduct')
+      }
+    },
+    {
+      command: 'manage product page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('manageProduct')
+      }
+    },
+    {
+      command: 'seller dashboard page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('sellerdashboard')
+      }
+    },
+    {
+      command: 'seller signup page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('sellersignup')
+      }
+    },
+    {
+      command: 'userprofile page kholo',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('profile')
+      }
+    },
   ]
 
   const {

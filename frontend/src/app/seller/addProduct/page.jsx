@@ -6,10 +6,18 @@ import * as Yup from "yup";
 const addProductSchema = Yup.object().shape({});
 
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 const Addproduct = () => {
   // const router = useRouter();
   // const [selFile, setSelFile] = useState("");
+
+  const [features, setFeatures] = useState([
+    {
+      name: "Feature name",
+      value: "feature value",
+    },
+  ]);
 
   const addProductForm = useFormik({
     initialValues: {
@@ -22,7 +30,7 @@ const Addproduct = () => {
     },
 
     onSubmit: async (values, action) => {
-      // values.image = selFile;
+      values.features = features;
       console.log(values);
       const res = await fetch("http://localhost:5000/product/add", {
         method: "POST",
@@ -52,8 +60,7 @@ const Addproduct = () => {
       .then((response) => {
         if (response.status === 200) {
           toast.success("file Uploaded");
-          response.json()
-          .then((data) => {
+          response.json().then((data) => {
             addProductForm.values.images[0] = data.savedFile;
           });
         } else {
@@ -64,6 +71,16 @@ const Addproduct = () => {
         console.log(err);
         toast.error("some error occured");
       });
+  };
+
+  const updateFeatures = (index, key, value) => {
+    let temp = features;
+    temp[index][key] = value;
+    setFeatures([...temp]);
+  };
+
+  const addFeature = () => {
+    setFeatures([...features, { name: "", value: "" }]);
   };
 
   return (
@@ -124,6 +141,28 @@ const Addproduct = () => {
                 required=""
               />
             </div>
+
+            {features.map(({ name, value }, index) => (
+              <div className="grid grid-cols-2">
+                <input
+                  onChange={(e) => {
+                    updateFeatures(index, "name", e.target.value);
+                  }}
+                  value={name}
+                  className="w-1/2 bg-gray-300 pe-2 rounded mb-3"
+                />
+                <input
+                  onChange={(e) => {
+                    updateFeatures(index, "value", e.target.value);
+                  }}
+                  value={value}
+                  className="w-1/2 bg-gray-300  rounded mb-3"
+                />
+              </div>
+            ))}
+
+            <button type="button" onClick={addFeature}>Add New Feature</button>
+
             <div className="flex items-center justify-center w-full">
               <label
                 htmlFor="dropzone-file"
