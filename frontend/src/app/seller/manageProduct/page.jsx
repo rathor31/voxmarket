@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 const ManageProduct = () => {
 
-    const [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState([]);
 
   const fetchProductData = () => {
     fetch("http://localhost:5000/product/getall")
