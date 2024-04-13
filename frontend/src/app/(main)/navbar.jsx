@@ -6,14 +6,14 @@ const navbar = () => {
       <>
         {/* component */}
         {/* follow me on twitter @asad_codes */}
-        <div className="flex flex-wrap place-items-center h-46 bg-[#1E2852] ">
+        <div className="flex flex-wrap place-items-center h-46  ">
           <section className="relative mx-auto">
             {/* navbar */}
-            <nav className="flex justify-between bg-gray-900 text-white w-screen ">
-              <div className="px-5 xl:px-12 py-6 flex w-full items-center">
+            <nav className="flex justify-between bg-gray-900 text-white w-screen  ">
+              <div className="px-5 xl:px-12 py-6 flex w-full items-center bg-[#1E2852]">
                 <a className="text-3xl font-bold font-heading" href="#">
                   <div className="flex ">
-                    <img src="logo.png" alt="" className="h-9" />
+                    <img src="logo.png" alt="" className="h-9 pe-2"/>
                     <div>VOX-MARKET</div>
                   </div>
                 </a>
@@ -40,6 +40,7 @@ const navbar = () => {
                     </a>
                   </li>
                 </ul>
+                
                 {/* Header Icons */}
                 <div className="hidden xl:flex items-center space-x-5 items-center">
                   <a className="hover:text-gray-200" href="#">
