@@ -23,8 +23,22 @@ router.get('/getall',(req,res)=>{
     console.log(req.body);
 });
 
-router.get('/delete',(req,res)=>{
-    res.send('delete responce from post router');
+router.delete('/delete/:id',(req,res)=>{
+    Model.findByIdAndDelete(req.params.id)
+    .then((result) => {
+        res.status(200).json(result);
+    }).catch((err) => {
+        res.status(500).json(err)
+    });
+});
+
+router.get('/getbyid/:id',(req,res)=>{
+    Model.findById(req.params.id)
+    .then((result) => {
+        res.status(200).json(result);
+    }).catch((err) => {
+        res.status(500).json(err)
+    });
 });
 
 router.get('/update',(req,res)=>{

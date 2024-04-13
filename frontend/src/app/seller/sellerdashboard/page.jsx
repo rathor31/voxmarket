@@ -1,16 +1,16 @@
 import React from "react";
 
-const AdminDashboard = () => {
+const SellerDashboard = () => {
   return (
     <>
       <>
         {/* component */}
         <div className="min-h-screen bg-#F5F5F5">
-          <aside className="bg-gradient-to-br from-[#1E2852] to-[#1E2852] -translate-x-80 fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
+          <aside className="bg-gradient-to-br from-[#1E2852] to-[#1E2852] -translate-x-80 fixed inset-0 z-50 ms-4 mt-16 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
             <div className="relative border-b border-white/20">
               <a className="flex items-center gap-4 py-6 px-8" href="#/">
                 <h6 className="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-white">
-                  Admin Dashboard
+                  Seller Dashboard
                 </h6>
               </a>
               <button
@@ -61,7 +61,7 @@ const AdminDashboard = () => {
                   </a>
                 </li>
                 <li>
-                  <a className="" href="#">
+                  <a className="" href="/seller/sellerProfile">
                     <button
                       className="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30 w-full flex items-center gap-4 px-4 capitalize"
                       type="button"
@@ -86,7 +86,7 @@ const AdminDashboard = () => {
                   </a>
                 </li>
                 <li>
-                  <a className="" href="#">
+                  <a className="" href="/seller/manageProduct">
                     <button
                       className="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30 w-full flex items-center gap-4 px-4 capitalize"
                       type="button"
@@ -105,7 +105,7 @@ const AdminDashboard = () => {
                         />
                       </svg>
                       <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
-                        tables
+                        Manage Product
                       </p>
                     </button>
                   </a>
@@ -533,4 +533,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default SellerDashboard;
