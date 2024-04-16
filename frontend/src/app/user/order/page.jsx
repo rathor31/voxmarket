@@ -1,11 +1,7 @@
 
 import React from 'react'
 
-<<<<<<< HEAD:frontend/src/app/(main)/cart/page.jsx
-const cart = () => {
-=======
 const OrderDetails = () => {
->>>>>>> f796bef6ee22939aaef029136b43f6c00919f5c4:frontend/src/app/user/order/page.jsx
   return (
     <div>
       <section className="h-screen bg-gray-100 py-12 sm:py-16 lg:py-20">
@@ -172,8 +168,4 @@ const OrderDetails = () => {
   )
 }
 
-<<<<<<< HEAD:frontend/src/app/(main)/cart/page.jsx
-export default cart
-=======
 export default OrderDetails;
->>>>>>> f796bef6ee22939aaef029136b43f6c00919f5c4:frontend/src/app/user/order/page.jsx
