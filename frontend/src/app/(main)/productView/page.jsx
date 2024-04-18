@@ -97,8 +97,8 @@ const productView = () => {
             >
               <img
                 className="object-cover"
-                src={'http://localhost:5000/'+product.images[0]}
-                alt="product image"
+                src={`${process.env.NEXT_PUBLIC_API_URL}/${product.images[0]}`}
+                alt={product.pname}
               />
               <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
                 39% OFF
@@ -112,6 +112,7 @@ const productView = () => {
                 </h5>
                 <span>{product.pdetail}</span>
               </a>
+              <p>Sold by : {product.seller.fname} {product.seller.lname}</p>
               <div className="mt-2 mb-5 flex items-center justify-between">
                 <p>
                   <span className="text-3xl font-bold text-slate-900">{product.pprice}</span>

@@ -18,7 +18,7 @@ const SignUpSeller = () => {
     onSubmit: async (values, action) => {
       // values.image = selFile;
       console.log(values);
-      const res = await fetch("http://localhost:5000/seller/add", {
+      const res = await fetch('http://localhost:5000/seller/add', {
         method: "POST",
         body: JSON.stringify(values),
         headers: { "Content-type": "application/json" },

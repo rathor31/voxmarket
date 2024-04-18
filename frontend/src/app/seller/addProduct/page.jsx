@@ -7,10 +7,13 @@ const addProductSchema = Yup.object().shape({});
 
 import toast from "react-hot-toast";
 import { useState } from "react";
+import useSellerContext from "@/context/SellerContext";
 
 const Addproduct = () => {
   // const router = useRouter();
   // const [selFile, setSelFile] = useState("");
+
+  const { currentSeller } = useSellerContext();
 
   const [features, setFeatures] = useState([
     {
@@ -35,7 +38,10 @@ const Addproduct = () => {
       const res = await fetch("http://localhost:5000/product/add", {
         method: "POST",
         body: JSON.stringify(values),
-        headers: { "Content-type": "application/json" },
+        headers: { 
+          "Content-type": "application/json",
+          "x-auth-token" : currentSeller.token
+          },
       });
       console.log(res.status);
       action.resetForm();

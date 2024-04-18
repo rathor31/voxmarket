@@ -1,13 +1,19 @@
 'use client'
+import useSellerContext from "@/context/SellerContext";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const ManageProduct = () => {
 
   const [productList, setProductList] = useState([]);
+  const { currentSeller } = useSellerContext();
 
   const fetchProductData = () => {
-    fetch("http://localhost:5000/product/getall")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/getbyseller`, {
+      headers: {
+        'x-auth-token': currentSeller.token
+      }
+    })
       .then((response) => {
         console.log(response.status);
         return response.json();

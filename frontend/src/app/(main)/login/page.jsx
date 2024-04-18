@@ -1,59 +1,56 @@
-'use client'
+"use client";
 import { useFormik } from "formik";
+import toast from "react-hot-toast";
 import * as Yup from "yup";
-
 
 const Login = () => {
   const addUserSchema = Yup.object().shape({});
-  
 
   const addUserForm = useFormik({
     initialValues: {
-      email:"",
-      password:""
-      
+      email: "",
+      password: "",
     },
-    onSubmit: async(values,action)=>{
-    console.log(values);
+    onSubmit: async (values, action) => {
+      console.log(values);
 
-      const res = await fetch('http://localhost:5000/user/authenticate', {
-        method: 'POST',
+      const res = await fetch("http://localhost:5000/user/authenticate", {
+        method: "POST",
         body: JSON.stringify(values),
         headers: {
-          'Content-Type': 'application/json'
-        }
-
+          "Content-Type": "application/json",
+        },
       });
-      console.log(res.status)
-      action.resetForm();
-
+      console.log(res.status);
+      
       if (res.status === 200) {
-        toast.success('Login Successfull')
-        setLoggedIn(true);
+        toast.success("Login Successfull");
         const data = await res.json();
-        router.post('/seller/dashboard')
+        console.log(data);
+        sessionStorage.setItem('user', JSON.stringify(data))
+        setLoggedIn(true);
+        action.resetForm();
+        router.push("/");
+      } else if (res.status === 401) {
+        toast.error("Invalid Credentials");
+      }else{
+        toast.error("Some error occured");
       }
-      else if (res.status === 400
-      ) {
-       toast.error('Some error occured')
-      }
-
     },
-    
+
     validationSchema: addUserSchema,
   });
-
 
   return (
     <>
       <div
         className="container-fluid flex items-center justify-center bg-#F5F5F5"
-        style={{height: "100vh" }}
+        style={{ height: "100vh" }}
       >
         <div className=" w-3/4 --tw-shadow-color: #000;  ">
           <div className="grid grid-cols-2 h-3/4">
             <div className="">
-              <img 
+              <img
                 src="https://www.pngplay.com/wp-content/uploads/6/E-Commerce-Shopping-PNG-Clipart-Background.png"
                 alt=""
                 className="px-5 py-4 "
@@ -126,13 +123,13 @@ const Login = () => {
                     </button>
                   </div>
                   <div className="text-sm mt-8 text-center">
-                        <a
-                          href="/signup"
-                          className="font-semibold  hover:text-[#D4A056]-500 text-[#FC9B3C] "
-                        >
-                          Yet not register? Register Here!
-                        </a>
-                      </div>
+                    <a
+                      href="/signup"
+                      className="font-semibold  hover:text-[#D4A056]-500 text-[#FC9B3C] "
+                    >
+                      Yet not register? Register Here!
+                    </a>
+                  </div>
                 </div>
               </form>
             </div>
@@ -140,7 +137,7 @@ const Login = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
