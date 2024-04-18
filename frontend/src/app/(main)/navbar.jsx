@@ -1,6 +1,12 @@
+'use client';
+import useCartContext from "@/context/CartContext";
+import Link from "next/link";
 import React from "react";
 
 const navbar = () => {
+
+  const { cartItems } = useCartContext();
+
   return (
     <>
       <>
@@ -99,7 +105,7 @@ const navbar = () => {
                 </div>
               </div>
               {/* Responsive navbar */}
-              <a className="xl:hidden flex mr-6 items-center" href="#">
+              <Link className="xl:hidden flex mr-6 items-center" href="/cartpage">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 hover:text-gray-200"
@@ -118,7 +124,8 @@ const navbar = () => {
                   <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-pink-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
                 </span>
-              </a>
+                {cartItems.length}
+              </Link>
               <a className="navbar-burger self-center mr-12 xl:hidden" href="#">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

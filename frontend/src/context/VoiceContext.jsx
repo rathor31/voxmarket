@@ -3,7 +3,7 @@ import regeneratorRuntime from "regenerator-runtime";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { IconPlayerRecordFilled } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
-
+import { FaMicrophone } from "react-icons/fa6";
 
 const pageDetails = [
   {
@@ -306,12 +306,13 @@ export const VoiceProvider = ({ children }) => {
           <span>
             <IconPlayerRecordFilled style={{ display: 'inline' }} color='#f00' /> listening...
           </span>
-        )
-        : 'off'}</button>
+        ):(
+<span><FaMicrophone /></span>
+        ) }</button>
       {/* <p>Microphone: </p> */}
-      <button onClick={SpeechRecognition.startListening}>Start</button>
+      {/* <button onClick={SpeechRecognition.startListening}>Start</button>
       <button onClick={SpeechRecognition.stopListening}>Stop</button>
-      <button onClick={resetTranscript}>Reset</button>
+      <button onClick={resetTranscript}>Reset</button> */}
       <p>{transcript}</p>
       {children}
     </VoiceContext.Provider>

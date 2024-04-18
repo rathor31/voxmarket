@@ -5,6 +5,7 @@ import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
+import useCartContext from "@/context/CartContext";
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -65,6 +66,8 @@ function classNames(...classes) {
 const productView = () => {
   const [productList, setProductList] = useState([]);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+
+  const { addItem, checkItemExists } = useCartContext();
 
   const fetchProductData = () => {
     fetch("http://localhost:5000/product/getall")
@@ -169,8 +172,9 @@ const productView = () => {
                   </span>
                 </div>
               </div>
-              <a
-                href="#"
+              <button
+                onClick={() => addItem(product)}
+                disabled={ checkItemExists(product._id) }
                 className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
               >
                 <svg
@@ -188,7 +192,7 @@ const productView = () => {
                   />
                 </svg>
                 Add to cart
-              </a>
+              </button>
             </div>
           </div>
           

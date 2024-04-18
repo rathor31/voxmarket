@@ -1,17 +1,6 @@
 'use client';
 import React, { useContext } from 'react';
-import {
-  Container,
-  Group,
-  Text,
-  Title,
-  Divider,
-  Button,
-  Card,
-  TextInput,
-  Spacer,
-  Grid,
-} from '@mantine/core';
+
 import useCartContext from '@/context/CartContext';
 import { IconTrash } from '@tabler/icons-react';
 import Link from 'next/link';
@@ -29,52 +18,49 @@ const CartPage = () => {
   };
 
   return (
-    <Container size="md">
-      <Title>Shopping Cart</Title>
+    <div className='container mx-auto' size="md">
+      <h1>Shopping Cart</h1>
       {cartItems.length === 0 ? (
-        <Text>Your cart is currently empty.</Text>
+        <p>Your cart is currently empty.</p>
       ) : (
         <>
-          <Group direction="column">
+          <div direction="column">
             {cartItems.map((item) => (
-              <Card key={item._id} shadow="sm" radius="md" withBorder w={'100%'}>
-                <Grid gutter={5}>
-                  <Grid.Col span={2}>
-                    <img src={`${process.env.NEXT_PUBLIC_API_URL}/${item.image[0]}`} alt={item.name} width={'100%'} />
+              <div className='' key={item._id} shadow="sm" radius="md" withBorder w={'100%'}>
+                <div className='' gutter={5}>
+                <img src={`${process.env.NEXT_PUBLIC_API_URL}/${item.image}`} alt={item.name} width={'100%'} />
+                  <div className='py-20'>
 
-                  </Grid.Col>
-                  <Grid.Col span={6} py={20}>
-
-                    <Text weight="bold" c="dimmed" tt={'uppercase'}>{item.category}</Text>
-                    <Text weight="bold">{item.title}</Text>
-                    <Title order={3}>₹{item.price.toFixed(2)}</Title>
-                  </Grid.Col>
-                  <Grid.Col span={4} py={20}>
-                    <Button color='red' ml={'auto'} size="xs" variant="outline" onClick={() => handleRemoveItem(item)}>
+                    <p weight="bold" c="dimmed" tt={'uppercase'}>{item.category}</p>
+                    <p weight="bold">{item.title}</p>
+                    <h1 >₹{item.price}</h1>
+                  </div>
+                  <div span={4} py={20}>
+                    <button color='red' ml={'auto'} size="xs" variant="outline" onClick={() => handleRemoveItem(item)}>
                       <IconTrash />
-                    </Button>
-                    <TextInput
+                    </button>
+                    <input
                       label="Quantity"
                       placeholder="1"
                       value={item.quantity.toString()}
                       onChange={(e) => handleInputChange(item._id, parseInt(e.target.value))}
                     />
-                  </Grid.Col>
-                </Grid>
-              </Card>
+                  </div>
+                </div>
+              </div>
             ))}
-          </Group>
-          <Divider my="md" />
-          <Group direction="row" justify="space-between">
-            <Text>Total: ₹{cartTotalAmount.toFixed(2)}</Text>
-            <Group>
-              <Button onClick={clearCart} variant="outline">Clear Cart</Button>
-              <Button component={Link} href="/user/checkout" variant="filled">Checkout</Button>
-            </Group>
-          </Group>
+          </div>
+          <div my="md" />
+          <div direction="row" justify="space-between">
+            <p>Total: ₹{cartTotalAmount.toFixed(2)}</p>
+            <div>
+              <button onClick={clearCart} variant="outline">Clear Cart</button>
+              <button component={Link} href="/user/checkout" variant="filled">Checkout</button>
+            </div>
+          </div>
         </>
       )}
-    </Container>
+    </div>
   );
 };
 

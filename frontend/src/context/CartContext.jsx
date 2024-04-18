@@ -1,6 +1,5 @@
 'use client';
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { useDisclosure } from '@mantine/hooks';
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
@@ -9,7 +8,6 @@ export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState(JSON.parse(sessionStorage.getItem('cartItems')) || []);
     const [cartTotalAmount, setCartTotalAmount] = useState(0);
 
-    const [cartOpened, toggleCart] = useDisclosure(false);
 
     useEffect(() => {
         const totalAmount = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -103,8 +101,6 @@ export const CartProvider = ({ children }) => {
             clearItem,
             clearCart,
             checkItemExists,
-            cartOpened,
-            toggleCart,
             getCartTotalAmount
         }}>
             {children}
