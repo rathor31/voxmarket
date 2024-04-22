@@ -1,12 +1,13 @@
-'use client';
+"use client";
 import useCartContext from "@/context/CartContext";
 import Link from "next/link";
 import React from "react";
+import { FiUser } from "react-icons/fi";
+
 
 const navbar = () => {
-
   const { cartItems } = useCartContext();
-
+  const {setCartOpen} = useCartContext();
   return (
     <>
       <>
@@ -15,18 +16,17 @@ const navbar = () => {
         <div className="flex flex-wrap place-items-center h-46  ">
           <section className="relative mx-auto">
             {/* navbar */}
-            <nav className="flex justify-between bg-gray-900 text-white w-screen  ">
-              <div className="px-5 xl:px-12 py-6 flex w-full items-center bg-[#1E2852]">
+            <nav className="flex justify-between  text-white w-screen bg-[#1E2852] ">
+              <div className="px-5 xl:px-12 py-2 flex w-full items-center ">
                 <a className="text-3xl font-bold font-heading" href="#">
-                  <div className="flex ">
-                    <img src="logo.png" alt="" className="h-9 pe-2"/>
-                    <div>VOX-MARKET</div>
+                  <div className=" ">
+                    <img src="logo2.png" alt="" className="h-16" />
                   </div>
                 </a>
                 {/* Nav Links */}
                 <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
                   <li>
-                    <a className="hover:text-gray-200" href="#">
+                    <a className="hover:text-gray-200" href="/">
                       Home
                     </a>
                   </li>
@@ -36,36 +36,72 @@ const navbar = () => {
                     </a>
                   </li>
                   <li>
-                    <a className="hover:text-gray-200" href="#">
+                    <a className="hover:text-gray-200" href="/productView">
                       Collections
                     </a>
                   </li>
                   <li>
-                    <a className="hover:text-gray-200" href="#">
+                    <a className="hover:text-gray-200" href="/contact">
                       Contact Us
                     </a>
                   </li>
                 </ul>
-                
+
                 {/* Header Icons */}
                 <div className="hidden xl:flex items-center space-x-5 items-center">
-                  <a className="hover:text-gray-200" href="#">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+                  <>
+                    <a className="flex items-center hover:text-gray-200" href="/sellerLogin">
+                    <FiUser />
+                    </a>                  
+                    {/* Dropdown menu */}
+                    <div
+                      id="dropdown"
+                      className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                      />
-                    </svg>
-                  </a>
-                  <a className="flex items-center hover:text-gray-200" href="#">
+                      <ul
+                        className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="dropdownDefaultButton"
+                      >
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Dashboard
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Settings
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Earnings
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Sign out
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </>
+
+                  <a
+                    className="flex items-center hover:text-gray-200"
+                    href="/CartPage"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6"
@@ -105,7 +141,7 @@ const navbar = () => {
                 </div>
               </div>
               {/* Responsive navbar */}
-              <Link className="xl:hidden flex mr-6 items-center" href="/cartpage">
+              <button  onClick={()=>setCartOpen(true)} className="xl:hidden flex mr-6 items-center" >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 hover:text-gray-200"
@@ -125,7 +161,7 @@ const navbar = () => {
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
                 </span>
                 {cartItems.length}
-              </Link>
+              </button>
               <a className="navbar-burger self-center mr-12 xl:hidden" href="#">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -146,21 +182,6 @@ const navbar = () => {
           </section>
         </div>
         {/* Does this resource worth a follow? */}
-        <div className="absolute bottom-0 right-0 mb-4 mr-4 z-10">
-          <div>
-            <a
-              title="Follow me on twitter"
-              href="https://www.twitter.com/asad_codes"
-              target="_blank"
-              className="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12"
-            >
-              <img
-                className="object-cover object-center w-full h-full rounded-full"
-                src="https://www.imore.com/sites/imore.com/files/styles/large/public/field/image/2019/12/twitter-logo.jpg"
-              />
-            </a>
-          </div>
-        </div>
       </>
     </>
   );

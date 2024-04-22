@@ -1,6 +1,73 @@
-import React from "react";
+"use client";
+import { useFormik } from "formik";
+import { useRouter } from "next/navigation";
+
+import React, { useRef, useState } from "react";
+import { useNavigate } from "next/navigation";
 
 const ResetPassword = () => {
+  const emailRef = useRef(null);
+  const otpRef = useRef(null);
+
+  const [verifiedUser, setVerifiedUser] = useState(null);
+
+  const [showForm, setShowForm] = useState(false);
+
+  const router = useRouter();
+
+  const checkMailExists = async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/getbymail/${emailRef.current.value}`
+    );
+    // console.log(res.status);
+    const data = await res.json();
+    // console.log(data);
+    setVerifiedUser(data);
+    return res.status === 200;
+  };
+
+  const sendOTP = async () => {
+    if (!(await checkMailExists())) {
+      enqueueSnackbar("Email not registered", { variant: "error" });
+      return;
+    }
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/util/sendotp`, {
+      method: "POST",
+      body: JSON.stringify({ email: emailRef.current.value }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const verifyOTP = async() => {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/util/verifyotp/${
+          emailRef.current.value
+        }/${otpRef.current.value}`
+      );
+      // console.log(res.status);
+      if (res.status === 200) {
+        setShowForm(true);
+      } else {
+        enqueueSnackbar("Invalid OTP", { variant: "error" });
+      }
+    };
+
+    console.log(res.status);
+    if (res.status === 201) {
+      enqueueSnackbar("OTP sent successfully", { variant: "success" });
+    } else {
+      enqueueSnackbar("Something went wrong", { variant: "error" });
+    }
+  };
+
+  const resetForm = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      cpassword: "",
+    },
+  });
   return (
     <>
       <section className="bg-[#F5F5F5] dark:bg-gray-900">
@@ -9,11 +76,7 @@ const ResetPassword = () => {
             href="#"
             className="flex items-center mb-6 text-2xl font-semibold text-black dark:text-white"
           >
-            <img
-              className="w-12 h-12 mr-2"
-              src="logo.png"
-              alt="logo"
-            />
+            <img className="w-12 h-12 mr-2" src="logo.png" alt="logo" />
             VOX-MARKET
           </a>
           <div className="w-full p-6 bg-purple-50 rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700 sm:p-8">
@@ -38,37 +101,68 @@ const ResetPassword = () => {
                 />
               </div>
               <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-black dark:text-white"
+                <button
+                  type="Submit"
+                  onClick={sendOTP}
+                  className="mt-2 radius-xl bg-[#FC9B3C] border border-[#FC9B3C] w-1/2 rounded-lg"
                 >
-                  New Password
-                </label>
+                  Send OTP
+                </button>
+              </div>
+              <div>
                 <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-[#000] sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
+                  type="text"
+                  label="Enter OTP"
+                  ref={otpRef}
+                  placeholder="Enter OTP"
+                  className="mt-5 radius-xl"
                 />
               </div>
               <div>
-                <label
-                  htmlFor="confirm-password"
-                  className="block mb-2 text-sm font-medium text-black dark:text-white"
+                <button
+                  // onClick={verifyOTP}
+                  type="Submit"
+                  className="mt-2 radius-xl bg-[#FC9B3C] border border-[#FC9B3C] w-1/2 rounded-lg"
                 >
-                  Confirm password
-                </label>
-                <input
-                  type="password"
-                  name="confirm-password"
-                  id="confirm-password"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-[#000] sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
-                />
+                  Verify OTP
+                </button>
               </div>
+              <form onSubmit={resetForm.handleChange}>
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block mb-2 text-sm font-medium text-black dark:text-white"
+                  >
+                    New Password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    onChange={resetForm.handleChange}
+                    value={resetForm.values.password}
+                    className="bg-gray-50 border border-gray-300 text-[#000] sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required=""
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="confirm-password"
+                    className="block mb-2 text-sm font-medium text-black dark:text-white"
+                  >
+                    Confirm password
+                  </label>
+                  <input
+                    type="password"
+                    name="cpassword"
+                    id="confirm-password"
+                    onChange={resetForm.handleChange}
+                    value={resetForm.values.cpassword}
+                    className="bg-gray-50 border border-gray-300 text-[#000] sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required=""
+                  />
+                </div>
+              </form>
               <div className="flex items-start">
                 <div className="flex items-center h-5">
                   <input
@@ -104,8 +198,6 @@ const ResetPassword = () => {
           </div>
         </div>
       </section>
-
-      
     </>
   );
 };

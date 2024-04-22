@@ -126,7 +126,7 @@ const Sellerlogin = () => {
               <p className="flex-1 text-gray-500 text-md mx-4 my-1 sm:my-auto">
                 or
               </p>
-              <a href="#" className="flex-2 underline">
+              <a href="/seller/sellersignup" className="flex-2 underline">
                 Create an Account
               </a>
             </div>

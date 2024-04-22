@@ -8,7 +8,7 @@ export const SellerProvider = ({children}) => {
 
   const [currentSeller, setCurrentSeller] = useState(
     JSON.parse(sessionStorage.getItem("seller"))
-  );
+   );
 
   const [sellerLoggedIn, setSellerLoggedIn] = useState(currentSeller !== null);
 
