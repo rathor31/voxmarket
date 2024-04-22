@@ -27,7 +27,14 @@ router.get('/getall', (req, res) => {
     console.log(req.body);
 });
 
-
+router.delete('/delete/:id',(req,res)=>{
+    Model.findByIdAndDelete(req.params.id)
+    .then((result) => {
+        res.status(200).json(result);
+    }).catch((err) => {
+        res.status(500).json(err)
+    });
+});
 
 router.post('/authenticate', (req, res) => {
     console.log(req.body);

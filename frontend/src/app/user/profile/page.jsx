@@ -1,7 +1,58 @@
-
-import React from 'react'
+'use client'
+import { data } from 'autoprefixer'
+import { useFormik } from 'formik'
+import React, { useEffect, useState } from 'react'
 
 const userProfile = () => {
+  const[currentUser,setCurrentUser]=useState(
+    JSON.parse(sessionStorage.getItem('user'))
+  )
+
+  const [profileData, setProfileData] = useState({});
+  
+
+  const getUserInfo = () => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/getbyid`, {
+      headers: {
+        'x-auth-token': currentUser.token
+      }
+    })
+      .then((response) => {
+        console.log(response.status);
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setProfileData(data);
+      })
+      .catch((err) => {
+        console.log(err);
+    })
+  }
+
+  useEffect(() => {
+    getUserInfo();
+  }, [])
+  
+
+  const useForm= useFormik({
+    initialValues:currentUser,
+    onSubmit:async (data)=>{
+    console.log(data);
+    const res=await fetch(url+'/user/update'+currentUser._id,{
+      method:'PUT',
+      body:JSON.stringify(data), 
+      headers:{
+        'Content-Type':'application/json'
+      }
+    });
+    console.log(res.status);
+    const userData=await res.json();
+    console.log(userData);
+    setCurrentUser(userData); 
+    sessionStorage.setItem('user',JSON.stringify(userData));  
+  }
+  })
   return (
     <>
   <section className="w-full overflow-hidden dark:bg-gray-900">
@@ -15,13 +66,13 @@ const userProfile = () => {
       {/* Profile Image */}
       <div className="sm:w-[80%] xs:w-[90%] mx-auto flex">
         <img
-          src="WhatsApp Image 2024-01-23 at 18.44.34_569071c3.jpg"
+          src=""
           alt="User Profile"
           className="rounded-md lg:w-[12rem] lg:h-[12rem] md:w-[10rem] md:h-[10rem] sm:w-[8rem] sm:h-[8rem] xs:w-[7rem] xs:h-[7rem] outline outline-2 outline-offset-2 outline-blue-500 relative lg:bottom-[5rem] sm:bottom-[4rem] xs:bottom-[3rem]"
         />
         {/* FullName */}
         <h1 className="w-full text-left my-4 sm:mx-4 xs:pl-4 text-gray-800 dark:text-white lg:text-4xl md:text-3xl sm:text-3xl xs:text-xl font-serif">
-          Harshit Sahu
+          {profileData.name}
         </h1>
       </div>
       <div className="xl:w-[80%] lg:w-[90%] md:w-[90%] sm:w-[92%] xs:w-[90%] mx-auto flex flex-col gap-4 items-center relative lg:-top-8 md:-top-6 sm:-top-4 xs:-top-4">
@@ -43,13 +94,13 @@ const userProfile = () => {
                   <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">
                     First Name
                   </dt>
-                  <dd className="text-lg font-semibold">Harshit</dd>
+                  <dd className="text-lg font-semibold">{profileData.fname}</dd>
                 </div>
                 <div className="flex flex-col py-3">
                   <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">
                     Last Name
                   </dt>
-                  <dd className="text-lg font-semibold">Sahu</dd>
+                  <dd className="text-lg font-semibold">{profileData.lname}</dd>
                 </div>
                 <div className="flex flex-col py-3">
                   <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">
@@ -86,7 +137,7 @@ const userProfile = () => {
                     Email
                   </dt>
                   <dd className="text-lg font-semibold">
-                    samuelabera87@gmail.com
+                    {profileData.email}
                   </dd>
                 </div>
                 <div className="flex flex-col pt-3">
@@ -98,6 +149,7 @@ const userProfile = () => {
                   </dd>
                 </div>
               </dl>
+              <button className='btn btn-primary'>Edit</button>
             </div>
           </div>
           <div className="my-10 lg:w-[70%] md:h-[14rem] xs:w-full xs:h-[10rem]">

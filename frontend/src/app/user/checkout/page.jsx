@@ -1,17 +1,17 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
-import { Paper, Text, TextInput, Button, Group, SimpleGrid, Container, Box, Flex, Loader, NumberInput, Title, Grid, Divider, Stack, Textarea } from '@mantine/core';
+// import { Paper, Text, TextInput, Button, Group, SimpleGrid, Container, Box, Flex, Loader, NumberInput, Title, Grid, Divider, Stack, Textarea } from '@mantine/core';
 // import bg from './bg.svg';
-import classes from './Checkoutpage.module.css';
+// import classes from './Checkoutpage.module.css';
 import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
-import { enqueueSnackbar } from 'notistack';
+// import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import PaymentGateway from './PaymentGateway';
-import { Elements } from '@stripe/react-stripe-js';
+// import { Elements } from '@stripe/react-stripe-js';
 import useCartContext from '@/context/CartContext';
-import useAppContext from '@/context/AppContext';
+// import useAppContext from '@/context/AppContext';
 
 const appearance = {
     theme: 'day'
@@ -38,7 +38,7 @@ function CheckoutPage() {
     const [clientSecret, setClientSecret] = useState('');
     const [tutorDetails, setTutorDetails] = useState(null);
     const { getCartTotalAmount, cartItems } = useCartContext();
-    const { currentUser } = useAppContext();
+    // const { currentUser } = useAppContext();
 
     const addressRef = useRef();
     const pincodeRef = useRef();

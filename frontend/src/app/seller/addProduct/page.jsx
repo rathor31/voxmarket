@@ -1,8 +1,7 @@
 "use client";
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useFormik } from "formik";
 import * as Yup from "yup";
-// import { useState } from 'react';
 const addProductSchema = Yup.object().shape({});
 
 import toast from "react-hot-toast";
@@ -10,7 +9,7 @@ import { useState } from "react";
 import useSellerContext from "@/context/SellerContext";
 
 const Addproduct = () => {
-  // const router = useRouter();
+  const router = useRouter();
   // const [selFile, setSelFile] = useState("");
 
   const { currentSeller } = useSellerContext();
@@ -27,13 +26,13 @@ const Addproduct = () => {
       pname: "",
       pdetail: "",
       pprice: "",
-      pcategory: "",
+      category: "",
       images: [],
       createdAt: "",
     },
 
     onSubmit: async (values, action) => {
-      values.features = features;
+      values.features = features.name;
       console.log(values);
       const res = await fetch("http://localhost:5000/product/add", {
         method: "POST",
@@ -47,7 +46,7 @@ const Addproduct = () => {
       action.resetForm();
       if (res.status === 200) {
         toast("Item uploaded successfully");
-        // router.push('/admin/manageProduct');
+        router.push('/seller/manageProduct');
       } else {
         toast("Something went wrong");
       }
@@ -67,7 +66,7 @@ const Addproduct = () => {
         if (response.status === 200) {
           toast.success("file Uploaded");
           response.json().then((data) => {
-            addProductForm.values.images[0] = data.savedFile;
+            addProductForm.values.images[0] = file.name;
           });
         } else {
           toast.success("some error occured");
@@ -309,7 +308,7 @@ const Addproduct = () => {
           >
             <div className="form-group">
               <label htmlFor="pname" className="mt-5 mb-2">
-                Name
+                Product Name
               </label>
               <input
                 type="text"
@@ -323,7 +322,7 @@ const Addproduct = () => {
 
             <div className="form-group">
               <label htmlFor="pdetail" className="mb-2">
-                Detail
+                Product Detail
               </label>
               <textarea
                 name="pdetail"
@@ -335,7 +334,7 @@ const Addproduct = () => {
             </div>
             <div className="form-group">
               <label htmlFor="pprice" className="mb-2">
-                price
+                Product Price
               </label>
               <textarea
                 name="pprice"
@@ -347,19 +346,22 @@ const Addproduct = () => {
             </div>
             <div className="form-group">
               <label htmlFor="pcategory" className="mb-2">
-                pcategory
+                Product Category
               </label>
               <input
-                name="pcategory"
+                name="category"
                 onChange={addProductForm.handleChange}
-                value={addProductForm.values.pcategory}
+                value={addProductForm.values.category}
                 className="w-full bg-gray-300 py-1 rounded mb-3"
                 required=""
               />
             </div>
 
             {features.map(({ name, value }, index) => (
-              <div className="grid grid-cols-2">
+              <div className='form-group grid cols-2'>
+                <label htmlFor="">
+                  Product Feature
+                </label>
                 <input
                   onChange={(e) => {
                     updateFeatures(index, "name", e.target.value);
@@ -367,6 +369,7 @@ const Addproduct = () => {
                   value={name}
                   className="w-1/2 bg-gray-300 pe-2 rounded mb-3"
                 />
+                <label htmlFor="">Feature Name</label>
                 <input
                   onChange={(e) => {
                     updateFeatures(index, "value", e.target.value);
@@ -377,7 +380,7 @@ const Addproduct = () => {
               </div>
             ))}
 
-            <button type="button" onClick={addFeature}>Add New Feature</button>
+            <button className="bg-red-500 text-white   mb-5 w-full py-1 rounded-lg" type="button" onClick={addFeature}>Add New Feature</button>
 
             <div className="flex items-center justify-center w-full">
               <label
@@ -409,6 +412,7 @@ const Addproduct = () => {
                   </p>
                 </div>
                 <input
+                name="images"
                   id="dropzone-file"
                   type="file"
                   onChange={uploadFile}

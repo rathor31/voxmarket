@@ -294,8 +294,9 @@ export const VoiceProvider = ({ children }) => {
 
   return (
     <VoiceContext.Provider value={{}}>
-      <h3>Press Space button to give command</h3>
-      <button className='floating-mic' onClick={() => {
+      
+      <div className='bg-[#8C52FF] text-white text-center'>
+      <button className='floating-mic ' onClick={() => {
         if (listening) {
           SpeechRecognition.stopListening();
         } else {
@@ -303,17 +304,18 @@ export const VoiceProvider = ({ children }) => {
         }
       }}>{listening ?
         (
-          <span>
-            <IconPlayerRecordFilled style={{ display: 'inline' }} color='#f00' /> listening...
+          <span >
+            <IconPlayerRecordFilled style={{ display: 'inline', color:'white' }} color='#f00' /> listening...
           </span>
         ):(
-<span><FaMicrophone /></span>
+          <span className='text-xl'><FaMicrophone /></span>
         ) }</button>
       {/* <p>Microphone: </p> */}
       {/* <button onClick={SpeechRecognition.startListening}>Start</button>
       <button onClick={SpeechRecognition.stopListening}>Stop</button>
       <button onClick={resetTranscript}>Reset</button> */}
-      <p>{transcript}</p>
+      </div>
+      
       {children}
     </VoiceContext.Provider>
   )

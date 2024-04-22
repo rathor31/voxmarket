@@ -14,6 +14,16 @@ router.post('/add', verifyToken, (req,res)=>{
     })
 });
 
+router.get('/getbycategory/:category',(req,res)=>{
+    console.log(req.params.category);
+    Model.find({category : req.params.category})
+    .then((result) => {
+        res.status(200).json(result);
+    }).catch((err) => {
+        res.status(500).json(err)
+    });
+});
+
 router.get('/getall',(req,res)=>{
     Model.find({}).populate('seller')
     .then((result) => {
@@ -53,8 +63,16 @@ router.get('/getbyseller', verifyToken, (req, res) => {
         });
 });
 
-router.get('/update',(req,res)=>{
-    res.send('update responce from post router');
-});
+
+router.put('/update/:id', (req,res) => {
+    console.log(req.body);
+    Model.findByIdAndUpdate(req.params.id, req.body,{new:true})
+    .then((result) => {
+        res.status(200).json(result);
+    }).catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+})
 
 module.exports= router;
