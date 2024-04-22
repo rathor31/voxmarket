@@ -3,13 +3,18 @@ import useCartContext from "@/context/CartContext";
 import Link from "next/link";
 import React from "react";
 import { FiUser } from "react-icons/fi";
+import CartPage from "./MyCart";
 
 
-const navbar = () => {
-  const { cartItems } = useCartContext();
-  const {setCartOpen} = useCartContext();
+const Navbar = () => {
+  const { cartItems, cartOpen, setCartOpen } = useCartContext();
   return (
     <>
+    {
+      cartOpen && (
+        <CartPage />
+      )
+    }
       <>
         {/* component */}
         {/* follow me on twitter @asad_codes */}
@@ -98,9 +103,9 @@ const navbar = () => {
                     </div>
                   </>
 
-                  <a
+                  <button type="button"
                     className="flex items-center hover:text-gray-200"
-                    href="/CartPage"
+                    onClick={() => setCartOpen(!cartOpen)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +125,7 @@ const navbar = () => {
                       <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-pink-400 opacity-75" />
                       <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
                     </span>
-                  </a>
+                  </button>
                   {/* Sign In / Register      */}
                   <a className="flex items-center hover:text-gray-200" href="#">
                     <svg
@@ -141,7 +146,7 @@ const navbar = () => {
                 </div>
               </div>
               {/* Responsive navbar */}
-              <button  onClick={()=>setCartOpen(true)} className="xl:hidden flex mr-6 items-center" >
+              <button  onClick={()=>setCartOpen(!cartOpen)} className="xl:hidden flex mr-6 items-center" >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 hover:text-gray-200"
@@ -187,4 +192,4 @@ const navbar = () => {
   );
 };
 
-export default navbar;
+export default Navbar;
