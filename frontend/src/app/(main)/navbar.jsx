@@ -5,16 +5,11 @@ import React from "react";
 import { FiUser } from "react-icons/fi";
 import CartPage from "./MyCart";
 
-
 const Navbar = () => {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
   return (
     <>
-    {
-      cartOpen && (
-        <CartPage />
-      )
-    }
+      {cartOpen && <CartPage />}
       <>
         {/* component */}
         {/* follow me on twitter @asad_codes */}
@@ -35,6 +30,9 @@ const Navbar = () => {
                       Home
                     </a>
                   </li>
+                  
+                    
+
                   <li>
                     <a className="hover:text-gray-200" href="#">
                       Category
@@ -55,9 +53,12 @@ const Navbar = () => {
                 {/* Header Icons */}
                 <div className="hidden xl:flex items-center space-x-5 items-center">
                   <>
-                    <a className="flex items-center hover:text-gray-200" href="/sellerLogin">
-                    <FiUser />
-                    </a>                  
+                    <a
+                      className="flex items-center hover:text-gray-200"
+                      href="/sellerLogin"
+                    >
+                      <FiUser />
+                    </a>
                     {/* Dropdown menu */}
                     <div
                       id="dropdown"
@@ -103,7 +104,8 @@ const Navbar = () => {
                     </div>
                   </>
 
-                  <button type="button"
+                  <button
+                    type="button"
                     className="flex items-center hover:text-gray-200"
                     onClick={() => setCartOpen(!cartOpen)}
                   >
@@ -127,7 +129,10 @@ const Navbar = () => {
                     </span>
                   </button>
                   {/* Sign In / Register      */}
-                  <a className="flex items-center hover:text-gray-200" href="#">
+                  <a
+                    className="flex items-center hover:text-gray-200"
+                    href="/login"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6 hover:text-gray-200"
@@ -146,7 +151,10 @@ const Navbar = () => {
                 </div>
               </div>
               {/* Responsive navbar */}
-              <button  onClick={()=>setCartOpen(!cartOpen)} className="xl:hidden flex mr-6 items-center" >
+              <button
+                onClick={() => setCartOpen(!cartOpen)}
+                className="xl:hidden flex mr-6 items-center"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 hover:text-gray-200"

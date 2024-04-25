@@ -170,6 +170,14 @@ const Signup = () => {
                       Sign in
                     </button>
                   </div>
+                  <div className="text-sm mt-8 text-center">
+                    <a
+                      href="/login"
+                      className="font-semibold  hover:text-[#D4A056]-500 text-[#FC9B3C] "
+                    >
+                      Already register? Login Here!
+                    </a>
+                  </div>
                 </div>
               </form>
             </div>
