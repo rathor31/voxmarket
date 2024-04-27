@@ -50,7 +50,7 @@ const Sellerlogin = () => {
       {/* component */}
       {/* Container */}
       <div
-        className="container-fluid flex items-center justify-center bg-#F5F5F5"
+        className="container-fluid flex items-center justify-center bg-purple-50"
         style={{ height: "100vh" }}
       >
         <div className=" w-3/4 --tw-shadow-color: #000;  ">
@@ -65,7 +65,7 @@ const Sellerlogin = () => {
             <div>
               <form onSubmit={addSellerForm.handleSubmit}>
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight  text-black">
-                  Login to your account
+                  Hey Seller, Welcome Back!
                 </h2>
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                   <div>

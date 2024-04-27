@@ -1,12 +1,31 @@
 "use client";
 import useCartContext from "@/context/CartContext";
+import useVoiceContext from "@/context/VoiceContext";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { FiUser } from "react-icons/fi";
 import CartPage from "./MyCart";
 
+
 const Navbar = () => {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
+  const {finalTranscript, voiceResponse, resetTranscript} = useVoiceContext();
+  useEffect(() => {
+    if (finalTranscript.includes('open card')) {
+      voiceResponse('I am opening cart page for you.');
+      setCartOpen(true);
+      resetTranscript();
+      
+    }
+    if (finalTranscript.includes('open cart')) {
+      voiceResponse('I am opening cart page for you.');
+      setCartOpen(true);
+      resetTranscript();
+      
+    }
+    
+  }, [finalTranscript])
+
   return (
     <>
       {cartOpen && <CartPage />}

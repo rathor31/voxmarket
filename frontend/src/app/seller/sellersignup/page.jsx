@@ -35,7 +35,7 @@ const SignUpSeller = () => {
   return (
     <>
       <div
-        className="container-fluid flex items-center justify-center bg-[#F5F5F5]"
+        className="container-fluid flex items-center justify-center bg-purple-50"
         style={{ height: "100vh" }}
       >
         <div className=" w-3/4 --tw-shadow-color: #000;  ">
@@ -50,7 +50,7 @@ const SignUpSeller = () => {
             <div>
               <form onSubmit={addSellerForm.handleSubmit}>
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight  text-black">
-                  Register Here !
+                  Hey Seller, Register Here !
                 </h2>
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                   <div className="flex flex-wrap">

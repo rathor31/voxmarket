@@ -13,7 +13,7 @@ const editPofile = () => {
   initialValues: currentUser,
   onSubmit : async (data) => {
     console.log(data);
-  const res = await fetch(url + '/user/update/'+currentUser._id, {
+    const res = await fetch(url + '/user/update/'+currentUser._id, {
     method: 'PUT',
     body: JSON.stringify(data),
     headers: {

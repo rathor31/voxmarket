@@ -15,7 +15,9 @@ import Link from "next/link";
 const Home = () => {
   return (
     <>
+      
       <Navbar />
+      
       <>
         <section>
         <Swiper
