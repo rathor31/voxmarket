@@ -2,8 +2,12 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import React from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const SignUpSeller = () => {
+
+  const router = useRouter();
   const addSellerSchema = Yup.object().shape({});
   const addSellerForm = useFormik({
     initialValues: {
@@ -25,9 +29,10 @@ const SignUpSeller = () => {
       console.log(res.status);
       action.resetForm();
       if (res.status === 200) {
-        toast("SignUp successfully");
+        toast.success("SignUp successfully");
+        router.push("/sellerLogin");
       } else {
-        toast("Something went wrong");
+        toast.error("Something went wrong");
       }
     },
     validationSchema: addSellerSchema,
@@ -38,7 +43,7 @@ const SignUpSeller = () => {
         className="container-fluid flex items-center justify-center bg-purple-50"
         style={{ height: "100vh" }}
       >
-        <div className=" w-3/4 --tw-shadow-color: #000;  ">
+        <div className=" w-3/4 --tw-shadow-color: #000;">
           <div className="grid grid-cols-2 h-3/4">
             <div className="w-full h-auto">
               <img
