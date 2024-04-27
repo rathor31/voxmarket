@@ -57,7 +57,7 @@ const Signup = () => {
   return (
     <>
       <div
-        className="container-fluid flex items-center justify-center bg-[#F5F5F5]"
+        className="container-fluid flex items-center justify-center bg-purple-50"
         style={{ height: "100vh" }}
       >
         <div className=" w-3/4 --tw-shadow-color: #000;  ">

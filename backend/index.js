@@ -2,6 +2,7 @@ const express = require('express');
 const productRouter =require('./routers/productRouter');
 const userRouter =require('./routers/userRouter');
 const sellerRouter =require('./routers/sellerRouter');
+const adminRouter =require('./routers/adminRouter');
 const contactRouter =require('./routers/contactRouter');
 const utilRouter =require('./routers/utilRouter');
 const reviewRouter =require('./routers/reviewRouter');  
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use('/product',productRouter);
 app.use('/user',userRouter);
 app.use('/seller',sellerRouter);
+app.use('/admin',adminRouter);
 app.use('/review',reviewRouter);
 app.use('/contact',contactRouter);
 app.use('/util',utilRouter)

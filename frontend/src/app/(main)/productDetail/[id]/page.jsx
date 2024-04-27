@@ -141,12 +141,7 @@ const ProductDetail = () => {
             </span>
           </div>
           <p className="leading-relaxed">
-            Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-            sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
-            juiceramps cornhole raw denim forage brooklyn. Everyday carry
-            +1 seitan poutine tumeric. Gastropub blue bottle austin
-            listicle pour-over, neutra jean shorts keytar banjo tattooed
-            umami cardigan.
+            {productDetails.pdetail}
           </p>
           <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
             <div className="flex">
@@ -182,7 +177,7 @@ const ProductDetail = () => {
           </div>
           <div className="flex">
             <span className="title-font font-medium text-2xl text-gray-900">
-              $58.00
+            {productDetails.pprice}
             </span>
             <button className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
               Add Cart

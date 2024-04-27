@@ -24,11 +24,11 @@ const subCategories = [
 const filters = [
   {
     id: 'color',
-    name: 'Color',
+    name: 'color',
     options: [
-      { value: 'white', label: 'White', checked: false },
+      { value: 'white', label: 'White', checked: false, onchange:(e) => {filterByColor("white")} },
       { value: 'beige', label: 'Beige', checked: false },
-      { value: 'blue', label: 'Blue', checked: true },
+      { value: 'blue', label: 'Blue', checked: false },
       { value: 'brown', label: 'Brown', checked: false },
       { value: 'green', label: 'Green', checked: false },
       { value: 'purple', label: 'Purple', checked: false },
@@ -36,11 +36,11 @@ const filters = [
   },
   {
     id: 'category',
-    name: 'Category',
+    name: 'category',
     options: [
-      { value: 'new-arrivals', label: 'New Arrivals', checked: false },
+      { value: 'cloth', label: 'ctoth', checked: false,onchange:(e) => {filterByCategory("cloth")} },
       { value: 'sale', label: 'Sale', checked: false },
-      { value: 'travel', label: 'Travel', checked: true },
+      { value: 'travel', label: 'Travel', checked: false },
       { value: 'organization', label: 'Organization', checked: false },
       { value: 'accessories', label: 'Accessories', checked: false },
     ],
@@ -54,7 +54,7 @@ const filters = [
       { value: '12l', label: '12L', checked: false },
       { value: '18l', label: '18L', checked: false },
       { value: '20l', label: '20L', checked: false },
-      { value: '40l', label: '40L', checked: true },
+      { value: '40l', label: '40L', checked: false },
     ],
   },
 ]
@@ -88,18 +88,31 @@ const productView = () => {
     fetchProductData();
   }, []);
 
+  const filterByCategory = (category) => {
+       
+    const filteredProduct = mobileFiltersOpen.filter(product => product.category === category);
+    setProductList(filteredProduct);
 
+}
+
+
+const filterByColor = (color) => {
+       
+  const filteredProduct = mobileFiltersOpen.filter(product => product.color === color);
+  setProductList(filteredProduct);
+
+}
 
 
 
   const displayProducts = () => {
     return <section className="container mx-auto p-5 md:py-5 px-0 md:p-8 md:px-0">
-    <section className="p-5 md:p-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-10 items-start ">
+    <section className="p-2 md:p-0 grid grid-cols-1  sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-10 items-start ">
       {
         productList.map((product)=>{
-            return <div key={product._id} className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+            return <div key={product._id} className="relative m-10  flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-purple-50 shadow-md">
             <Link
-              className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
+              className="relative mx-3 mt-3 flex h-60 overflow-hidden  rounded-xl"
               href={"/productDetail/"+product._id}
             >
               <img
@@ -292,53 +305,12 @@ const productView = () => {
         </Dialog>
       </Transition.Root>
 
-      <main className="mx-5 max-w-7xl px-4 sm:px-6 lg:px-8">
+      <main className="mx-5 max-w-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-baseline justify-between border-b border-gray-200 pb-5 pt-5">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900">Products</h1>
 
           <div className="flex items-center">
-            <Menu as="div" className="relative inline-block text-left">
-              <div>
-                <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                  Sort
-                  <ChevronDownIcon
-                    className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                    aria-hidden="true"
-                  />
-                </Menu.Button>
-              </div>
-
-              <Transition
-                
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div className="py-1">
-                    {sortOptions.map((option) => (
-                      <Menu.Item key={option.name}>
-                        {({ active }) => (
-                          <a
-                            href={option.href}
-                            className={classNames(
-                              option.current ? 'font-medium text-gray-900' : 'text-gray-500',
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm'
-                            )}
-                          >
-                            {option.name}
-                          </a>
-                        )}
-                      </Menu.Item>
-                    ))}
-                  </div>
-                </Menu.Items>
-              </Transition>
-            </Menu>
+            
 
             <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
               <span className="sr-only">View grid</span>
@@ -355,7 +327,7 @@ const productView = () => {
           </div>
         </div>
 
-        <section aria-labelledby="products-heading" className="pb-24 pt-6">
+        <section aria-labelledby="products-heading" className="pb-6 pt-6">
           <h2 id="products-heading" className="sr-only">
             Products
           </h2>

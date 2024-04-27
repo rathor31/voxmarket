@@ -6,11 +6,11 @@ import React from "react";
 
 const Template = ({ children }) => {
   return (
-    <VoiceProvider>
+    <CartProvider>
       <SellerProvider>
-        <CartProvider>{children}</CartProvider>
+        <VoiceProvider>{children}</VoiceProvider>
       </SellerProvider>
-    </VoiceProvider>
+    </CartProvider>
   );
 };
 

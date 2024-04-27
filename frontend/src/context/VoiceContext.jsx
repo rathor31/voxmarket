@@ -65,6 +65,10 @@ const pageDetails = [
   {
     pageName: 'profile',
     pagePath: '/user/profile'
+  },
+  {
+    pageName: 'MyCart',
+    pagePath: '/admin/adminprofile'
   }
 ]
 
@@ -115,101 +119,102 @@ export const VoiceProvider = ({ children }) => {
       }
     },
     {
-      command: 'login page kholo',
+      command: 'open login page',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('login')
       }
     },
     {
-      command: 'product view page kholo',
+      command: 'open collection page',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('productView')
       }
     },
+    
     {
-      command: 'reset password page kholo',
-      callback: (pageName) => {
-        console.log('Opening page: ', pageName);
-        voicePageNavigator('resetPassword')
-      }
-    },
-    {
-      command: 'contact page kholo',
+      command: 'open contact page',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('contact')
       }
     },
     {
-      command: 'reset password page kholo',
+      command: 'open reset password page',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('resetPassword')
       }
     },
     {
-      command: 'signup page kholo',
+      command: 'open signup page',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('signup')
       }
     },
     {
-      command: 'admin dashboard page kholo',
+      command: 'open admin dashboard',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('admindashboard')
       }
     },
     {
-      command: 'manage user page kholo',
+      command: 'open manage user',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('manageuser')
       }
     },
     {
-      command: 'admin profile page kholo',
+      command: 'open admin profile',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('adminprofile')
       }
     },
     {
-      command: 'add product page kholo',
+      command: 'open add product',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('addProduct')
       }
     },
     {
-      command: 'manage product page kholo',
+      command: 'open manage product',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('manageProduct')
       }
     },
     {
-      command: 'seller dashboard page kholo',
+      command: 'open seller dashboard',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('sellerdashboard')
       }
     },
     {
-      command: 'seller signup page kholo',
+      command: 'open seller sign up',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('sellersignup')
       }
     },
     {
-      command: 'userprofile page kholo',
+      command: 'open user profile',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('profile')
+      }
+    },
+    {
+      command: 'open cart page',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('MyCart')
       }
     },
     {
@@ -283,6 +288,10 @@ export const VoiceProvider = ({ children }) => {
       SpeechRecognition.startListening({ continuous: true });
     }
     if (finalTranscript.includes('stop listening')) {
+      voiceResponse('Okay, I will stop listening now');
+      SpeechRecognition.stopListening();
+    }
+    if (finalTranscript.includes('top listening')) {
       voiceResponse('Okay, I will stop listening now');
       SpeechRecognition.stopListening();
     }

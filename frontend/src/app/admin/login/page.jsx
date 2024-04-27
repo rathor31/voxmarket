@@ -1,18 +1,19 @@
 "use client";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import React from "react";
+import React from 'react'
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import useSellerContext from "@/context/SellerContext";
 
-const Sellerlogin = () => {
-  const addSellerSchema = Yup.object().shape({});
-  const router = useRouter();
+const Adminlogin = () => {
+
+  const addAdminSchema = Yup.object().shape({});
+  const router = useRouter()
 
   const { setSellerLoggedIn } = useSellerContext();
 
-  const addSellerForm = useFormik({
+  const addAdminForm = useFormik({
     initialValues: {
       email: "",
       password: "",
@@ -20,7 +21,7 @@ const Sellerlogin = () => {
     onSubmit: async (values, action) => {
       console.log(values);
 
-      const res = await fetch("http://localhost:5000/seller/authenticate", {
+      const res = await fetch("http://localhost:5000/admin/authenticate", {
         method: "POST",
         body: JSON.stringify(values),
         headers: {
@@ -28,28 +29,29 @@ const Sellerlogin = () => {
         },
       });
       console.log(res.status);
-
+      
       if (res.status === 200) {
         toast.success("Login Successfull");
         const data = await res.json();
         console.log(data);
-        sessionStorage.setItem("seller", JSON.stringify(data));
+        sessionStorage.setItem('seller', JSON.stringify(data))
         setSellerLoggedIn(true);
         action.resetForm();
-        router.push("/seller/sellerdashboard");
+        router.push("/admin/admindashboard");
       } else if (res.status === 400) {
         toast.error("Some error occured");
       }
     },
 
-    validationSchema: addSellerSchema,
+    validationSchema: addAdminSchema,
   });
 
   return (
+
     <>
-      {/* component */}
-      {/* Container */}
-      <div
+    {/* component */}
+    {/* Container */}
+    <div
         className="container-fluid flex items-center justify-center bg-purple-50"
         style={{ height: "100vh" }}
       >
@@ -63,9 +65,9 @@ const Sellerlogin = () => {
               />
             </div>
             <div>
-              <form onSubmit={addSellerForm.handleSubmit}>
+              <form onSubmit={addAdminForm.handleSubmit}>
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight  text-black">
-                  Hey Seller, Welcome Back!
+                  Hey Admin, Welcome Back!
                 </h2>
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                   <div>
@@ -80,8 +82,8 @@ const Sellerlogin = () => {
                         id="email"
                         name="email"
                         type="email"
-                        onChange={addSellerForm.handleChange}
-                        value={addSellerForm.values.email}
+                        onChange={addAdminForm.handleChange}
+                        value={addAdminForm.values.email}
                         autoComplete="email"
                         required
                         className="block w-full rounded-md border-0 py-1.5 px-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-[#fffff]"
@@ -111,8 +113,8 @@ const Sellerlogin = () => {
                         id="password"
                         name="password"
                         type="password"
-                        onChange={addSellerForm.handleChange}
-                        value={addSellerForm.values.password}
+                        onChange={addAdminForm.handleChange}
+                        value={addAdminForm.values.password}
                         autoComplete="current-password"
                         required
                         className="block w-full rounded-md border-0 py-1.5 px-1.5 text-[#000000] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-[#ffffff]"
@@ -130,7 +132,7 @@ const Sellerlogin = () => {
                   </div>
                   <div className="text-sm mt-8 text-center">
                     <a
-                      href="/seller/sellersignup"
+                      href="/admin/adminsignup"
                       className="font-semibold  hover:text-[#D4A056]-500 text-[#FC9B3C] "
                     >
                       Yet not register? Register Here!
@@ -142,8 +144,9 @@ const Sellerlogin = () => {
           </div>
         </div>
       </div>
-    </>
-  );
-};
+  </>
+  
+  )
+}
 
-export default Sellerlogin;
+export default Adminlogin
