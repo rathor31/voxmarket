@@ -30,9 +30,6 @@ const Navbar = () => {
                       Home
                     </a>
                   </li>
-                  
-                    
-
                   <li>
                     <a className="hover:text-gray-200" href="#">
                       Category
