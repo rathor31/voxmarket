@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useRef } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import regeneratorRuntime from "regenerator-runtime";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { IconPlayerRecordFilled } from '@tabler/icons-react';
@@ -68,12 +68,15 @@ const pageDetails = [
   }
 ]
 
+const speech = new SpeechSynthesisUtterance();
 const VoiceContext = createContext();
 
 export const VoiceProvider = ({ children }) => {
 
   const hasRun = useRef(false);
   const router = useRouter();
+
+  const [voices, setVoices] = useState([]);
 
   const commands = [
     {
@@ -91,12 +94,12 @@ export const VoiceProvider = ({ children }) => {
       }
     },
     {
-        command: 'I want to login',
-        callback: (pageName) => {
-          console.log('Opening page: ', pageName);
-          voicePageNavigator('login')
-        }
-      },
+      command: 'I want to login',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('login')
+      }
+    },
     {
       command: 'I want to contact you',
       callback: (pageName) => {
@@ -105,25 +108,11 @@ export const VoiceProvider = ({ children }) => {
       }
     },
     {
-      command: 'Beijing',
-      callback: (command, spokenPhrase, similarityRatio) => setMessage(`${command} and ${spokenPhrase} are ${similarityRatio * 100}% similar`),
-      // If the spokenPhrase is "Benji", the message would be "Beijing and Benji are 40% similar"
-      isFuzzyMatch: true,
-      fuzzyMatchingThreshold: 0.2
-    },
-    {
-      command: ['eat', 'sleep', 'leave'],
-      callback: (command) => setMessage(`Best matching command: ${command}`),
-      isFuzzyMatch: true,
-      fuzzyMatchingThreshold: 0.2,
-      bestMatchOnly: true
-    },
-    {
-        command: 'open manage product page',
-        callback: (pageName) => {
-          console.log('Opening page: ', pageName);
-          voicePageNavigator('manageProduct')
-        }
+      command: 'open manage product page',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('manageProduct')
+      }
     },
     {
       command: 'login page kholo',
@@ -223,13 +212,36 @@ export const VoiceProvider = ({ children }) => {
         voicePageNavigator('profile')
       }
     },
+    {
+      command: 'move page :direction',
+      callback: (direction) => {
+        console.log('Moving in direction: ', direction);
+        if (direction === 'up') {
+          window.scrollBy(0, -window.innerHeight);
+        } else if (direction === 'down') {
+          window.scrollBy(0, window.innerHeight);
+        }
+      }
+    },
+    {
+      command: 'scroll :direction',
+      callback: (direction) => {
+        console.log('Scrolling in direction: ', direction);
+        if (direction === 'up') {
+          window.scrollBy(0, -window.innerHeight);
+        } else if (direction === 'down') {
+          window.scrollBy(0, window.innerHeight);
+        }
+      }
+    }
   ]
 
   const {
     transcript,
     listening,
     resetTranscript,
-    browserSupportsSpeechRecognition
+    browserSupportsSpeechRecognition,
+    finalTranscript
   } = useSpeechRecognition({ commands, continuous: true });
 
   if (!browserSupportsSpeechRecognition) {
@@ -246,15 +258,56 @@ export const VoiceProvider = ({ children }) => {
     }
   }
 
+  const fillInputUsingVoice = (cb) => {
+    if (finalTranscript.toLowerCase().startsWith('enter')) {
+      cb();
+    }
+  }
+
+  const performActionUsingVoice = (triggerCommand, command, cb) => {
+    if (finalTranscript.toLowerCase().startsWith(triggerCommand) && finalTranscript.toLowerCase().includes(command)) {
+      cb();
+    }
+  }
+
   useEffect(() => {
     if (!hasRun.current) {
       hasRun.current = true;
-      // SpeechRecognition.startListening();
+      SpeechRecognition.startListening({ continuous: true });
     }
   }, [])
 
+  useEffect(() => {
+    if (finalTranscript === 'start listening') {
+      voiceResponse('I am listening');
+      SpeechRecognition.startListening({ continuous: true });
+    }
+    if (finalTranscript.includes('stop listening')) {
+      voiceResponse('Okay, I will stop listening now');
+      SpeechRecognition.stopListening();
+    }
+    if (finalTranscript.includes('hello box')) {
+      resetTranscript();
+      voiceResponse('Hello! How can I help you today?');
+      SpeechRecognition.startListening({ continuous: true });
+    }
+    if(finalTranscript.includes('goodbye box')) {
+      voiceResponse('Goodbye! Have a nice day!');
+      SpeechRecognition.stopListening();
+    }
+    if(finalTranscript.includes('move up')) {
+      window.scrollBy(0, -window.innerHeight/2);
+      resetTranscript();
+    }
+
+    if(finalTranscript.includes('move down')) {
+      window.scrollBy(0, window.innerHeight/2);
+      resetTranscript();
+    }
+
+  }, [finalTranscript])
+
   const voiceResponse = (text) => {
-    const speech = new SpeechSynthesisUtterance();
     speech.text = text;
     window.speechSynthesis.speak(speech);
   }
@@ -282,40 +335,69 @@ export const VoiceProvider = ({ children }) => {
     }
   }
 
+
+
+
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
       // console.log(e.code);
-      if (e.code === 'Space') {
+      if (e.code === 'Space' && e.ctrlKey) {
         SpeechRecognition.startListening();
       }
     });
   }, [])
 
 
+  useEffect(() => {
+    const synth = window.speechSynthesis;
+    if ("onvoiceschanged" in synth) {
+      setVoices(voices);
+      console.log(voices);
+      synth.onvoiceschanged = loadVoices;
+    }
+  }, [])
+
+  const loadVoices = () => {
+    const synth = window.speechSynthesis;
+    const voices = synth.getVoices();
+    setVoices(voices);
+    console.log(voices);
+    speech.voice = voices[12];
+  }
+
   return (
-    <VoiceContext.Provider value={{}}>
-      
+    <VoiceContext.Provider value={{
+      transcript,
+      resetTranscript,
+      interpretVoiceCommand,
+      fillInputUsingVoice,
+      performActionUsingVoice,
+      finalTranscript,
+      voiceResponse,
+      voices
+    }}>
+
       <div className='bg-[#8C52FF] text-white text-center'>
-      <button className='floating-mic ' onClick={() => {
-        if (listening) {
-          SpeechRecognition.stopListening();
-        } else {
-          SpeechRecognition.startListening();
-        }
-      }}>{listening ?
-        (
-          <span >
-            <IconPlayerRecordFilled style={{ display: 'inline', color:'white' }} color='#f00' /> listening...
-          </span>
-        ):(
-          <span className='text-xl'><FaMicrophone /></span>
-        ) }</button>
-      {/* <p>Microphone: </p> */}
-      {/* <button onClick={SpeechRecognition.startListening}>Start</button>
+        <button className='floating-mic ' onClick={() => {
+          if (listening) {
+            SpeechRecognition.stopListening();
+          } else {
+            SpeechRecognition.startListening();
+          }
+        }}>{listening ?
+          (
+            <span >
+              <IconPlayerRecordFilled style={{ display: 'inline', color: 'white' }} color='#f00' /> listening... {transcript}
+            </span>
+          ) : (
+            <span className='text-xl'><FaMicrophone /></span>
+          )}</button>
+        {/* <p>Microphone: </p> */}
+        {/* <button onClick={SpeechRecognition.startListening}>Start</button>
       <button onClick={SpeechRecognition.stopListening}>Stop</button>
       <button onClick={resetTranscript}>Reset</button> */}
       </div>
-      
+
       {children}
     </VoiceContext.Provider>
   )

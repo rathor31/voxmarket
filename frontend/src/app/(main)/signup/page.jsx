@@ -1,9 +1,30 @@
 "use client";
+import useVoiceContext from "@/context/VoiceContext";
 import { useFormik } from "formik";
+import { useEffect } from "react";
+import SpeechRecognition from "react-speech-recognition";
 import * as Yup from "yup";
 
 const Signup = () => {
   const addUserSchema = Yup.object().shape({});
+
+  const { performActionUsingVoice, fillInputUsingVoice, finalTranscript, voiceResponse, resetTranscript } = useVoiceContext();
+
+  useEffect(() => {
+    if(finalTranscript.includes('take sign up details')) {
+      SpeechRecognition.startListening({ continuous: true });
+      voiceResponse('Please provide me your first name');
+      resetTranscript();
+      if(finalTranscript.includes('first name')) {
+        resetTranscript();
+        setTimeout(() => {
+          addUserForm.setFieldValue('fname', finalTranscript);
+          voiceResponse('Please provide me your last name');
+        }, 5000);
+      }
+    }
+  }, [finalTranscript])
+
 
   const addUserForm = useFormik({
     initialValues: {
