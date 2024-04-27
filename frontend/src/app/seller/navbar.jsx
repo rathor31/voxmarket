@@ -1,10 +1,8 @@
 import React from 'react'
 
-const AdminNavbar = () => {
+const SellerNavBar = () => {
   return (
-    <>
-        {/* component */}
-        {/* follow me on twitter @asad_codes */}
+    <div>
         <div className="flex flex-wrap place-items-center h-46  ">
           <section className="relative mx-auto">
             {/* navbar */}
@@ -132,9 +130,8 @@ const AdminNavbar = () => {
             </nav>
           </section>
         </div>
-        {/* Does this resource worth a follow? */}
-      </>
+    </div>
   )
 }
 
-export default AdminNavbar;
+export default SellerNavBar
