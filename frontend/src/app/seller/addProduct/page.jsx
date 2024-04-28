@@ -32,7 +32,7 @@ const Addproduct = () => {
     },
 
     onSubmit: async (values, action) => {
-      values.features = features.name;
+      values.features = features;
       console.log(values);
       const res = await fetch("http://localhost:5000/product/add", {
         method: "POST",

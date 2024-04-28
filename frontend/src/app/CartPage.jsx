@@ -15,6 +15,35 @@ const CartPage = () => {
   }
   const [productList, setproductList] = useState([]);
 
+  const {
+    transcript,
+    resetTranscript,
+    interpretVoiceCommand,
+    fillInputUsingVoice,
+    performActionUsingVoice,
+    finalTranscript,
+    voiceResponse,
+    voices,
+    triggerModal,
+    checkExistenceInTranscript
+  } = useVoiceContext();
+
+  useEffect(() => {
+    if (finalTranscript.includes('clear cart')) {
+      const product = pluralize.singular(finalTranscript.split(' ').at(-1));
+      // console.log((product), product);
+      searchProduct(product);
+      resetTranscript();
+      voiceResponse(`Here are some ${product}s for you`);
+      triggerModal(
+        `Here are some ${product} for you`,
+        'Please ask or select the product you want to buy',
+        true,
+        <IconShoppingCart size={50} />
+      );
+    }
+  }, [finalTranscript])
+
   const fetchUserData = async () => {
     const res = await fetch('http://localhost:5000/product/getall');
 

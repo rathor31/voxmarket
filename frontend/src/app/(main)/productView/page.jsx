@@ -106,8 +106,8 @@ const productView = () => {
         <IconShoppingCart size={50} />
       );
     }
-    else if (finalTranscript.includes('search')) {
-      const product = pluralize.singular(finalTranscript.split(' ').slice(1).join(' '));
+    else if (finalTranscript.includes('search product')) {
+      const product = pluralize.singular(finalTranscript.split(' ').slice(2).join(' '));
       // console.log((product), product);
       searchProduct(product);
       resetTranscript();

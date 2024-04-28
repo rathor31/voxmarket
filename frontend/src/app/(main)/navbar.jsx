@@ -17,11 +17,16 @@ const Navbar = () => {
       resetTranscript();
       
     }
-    if (finalTranscript.includes('open cart')) {
+    else if (finalTranscript.includes('open cart')) {
       voiceResponse('I am opening cart page for you.');
       setCartOpen(true);
       resetTranscript();
       
+    }
+    else if (finalTranscript.includes('close cart')) {
+      voiceResponse('I am opening cart page for you.');
+      setCartOpen(false);
+      resetTranscript();
     }
     
   }, [finalTranscript])
