@@ -87,7 +87,7 @@ const pageDetails = [
     pagePath: '/productView'
   },
   {
-    pageName: ' sellerdashboard',
+    pageName: 'sellerdashboard',
     pagePath: '/seller/sellerdashboard'
   },
   {
@@ -99,7 +99,7 @@ const pageDetails = [
     pagePath: '/seller/manageProduct'
   },
   {
-    pageName: ' sellersignup',
+    pageName: 'sellersignup',
     pagePath: '/seller/sellersignup'
   },
   {
@@ -174,6 +174,13 @@ export const VoiceProvider = ({ children }) => {
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
         voicePageNavigator('login')
+      }
+    },
+    {
+      command: 'I want to buy something',
+      callback: (pageName) => {
+        console.log('Opening page: ', pageName);
+        voicePageNavigator('productView')
       }
     },
     {
@@ -358,6 +365,7 @@ export const VoiceProvider = ({ children }) => {
     if (!hasRun.current) {
       hasRun.current = true;
       // SpeechRecognition.startListening({ continuous: true });
+      // voiceResponse('Welcome to Vox Market. What are you shopping today?');
       triggerModal('Voice Assistant', 'I am listening');
     }
   }, [])
@@ -449,8 +457,6 @@ export const VoiceProvider = ({ children }) => {
       voiceResponse('Sorry, I did not understand that command. Please try again.');
     }
   }
-
-
 
 
   useEffect(() => {

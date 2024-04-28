@@ -9,6 +9,7 @@ import useCartContext from "@/context/CartContext";
 import useVoiceContext from "@/context/VoiceContext";
 import { IconMicrophone, IconShoppingCart } from "@tabler/icons-react";
 import pluralize from "pluralize";
+import { useRouter } from "next/navigation";
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -67,8 +68,12 @@ function classNames(...classes) {
 }
 
 const productView = () => {
+
+  const router = useRouter();
   const [productList, setProductList] = useState([]);
   const [masterList, setMasterList] = useState([]);
+
+  const [uniqueFilters, setUniqueFilters] = useState([]);
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
@@ -93,6 +98,7 @@ const productView = () => {
       // console.log((product), product);
       searchProduct(product);
       resetTranscript();
+      voiceResponse(`Here are some ${product}s for you`);
       triggerModal(
         `Here are some ${product} for you`,
         'Please ask or select the product you want to buy',
@@ -100,7 +106,26 @@ const productView = () => {
         <IconShoppingCart size={50} />
       );
     }
-    if (finalTranscript.includes('clear search')) {
+    else if (finalTranscript.includes('search')) {
+      const product = pluralize.singular(finalTranscript.split(' ').slice(1).join(' '));
+      // console.log((product), product);
+      searchProduct(product);
+      resetTranscript();
+      voiceResponse(`Here is your ${product}`);
+      triggerModal(
+        `Here is your ${product}`,
+        'Please ask or select the product you want to buy',
+        true,
+        <IconShoppingCart size={50} />
+      );
+    } else if (finalTranscript.includes('View Product number '.toLowerCase())) {
+      console.log(finalTranscript);
+      const product = parseInt(finalTranscript.split(' ').at(-1));
+      // console.log((product), product);
+      resetTranscript();
+      router.push(`/productDetail/${productList[product - 1]._id}`);
+    }
+    else if (finalTranscript.includes('clear search')) {
       setProductList(masterList);
       resetTranscript();
     }
@@ -155,7 +180,7 @@ const productView = () => {
     return <section className="container mx-auto p-5 md:py-5 px-0 md:p-8 md:px-0">
       <section className="p-2 md:p-0 grid grid-cols-1  sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-10 items-start ">
         {productList.length > 0 ?
-          productList.map((product) => {
+          productList.map((product, index) => {
             return <div key={product._id} className="relative m-10  flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-purple-50 shadow-md">
               <Link
                 className="relative mx-3 mt-3 flex h-60 overflow-hidden  rounded-xl"
@@ -167,7 +192,7 @@ const productView = () => {
                   alt={product.pname}
                 />
                 <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
-                  39% OFF
+                  Product No. {index + 1}
                 </span>
               </Link>
               <div className="mt-4 px-5 pb-5">
@@ -237,7 +262,7 @@ const productView = () => {
                   </div>
                 </div>
                 <button disabled={isInCart(product)} onClick={e => addItemToCart(product)} className='my-2 bg-green-600 hover:bg-green-700 py-2 px-5 text-white block w-full rounded' >
-                  <IconShoppingCart className="inline"/> {isInCart(product) ? 'Already Added' : 'Add to Cart'}
+                  <IconShoppingCart className="inline" /> {isInCart(product) ? 'Already Added' : 'Add to Cart'}
                 </button>
               </div>
             </div>
