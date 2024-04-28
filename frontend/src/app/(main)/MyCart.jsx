@@ -4,6 +4,7 @@ import useCartContext from '../../context/CartContext';
 import Link from 'next/link';
 
 import { useParams } from 'next/navigation';
+import useVoiceContext from '@/context/VoiceContext';
 
 const CartPage = () => {
 
@@ -40,7 +41,34 @@ const CartPage = () => {
     isInCart,
     getCartTotal,
     getCartItemsCount,
+    
   } = useCartContext();
+  
+
+  const {
+    transcript,
+    resetTranscript,
+    interpretVoiceCommand,
+    fillInputUsingVoice,
+    performActionUsingVoice,
+    finalTranscript,
+    voiceResponse,
+    voices,
+    triggerModal,
+    checkExistenceInTranscript
+  } = useVoiceContext();
+
+  useEffect(() => {
+    if (finalTranscript.includes('clear card') || finalTranscript.includes('clear cart') ) {
+      voiceResponse('I am closing cart page for you.');
+      clearCart();
+      resetTranscript();
+    }
+    
+    
+  }, [finalTranscript])
+  
+
 
   const displayCartItems = () => {
     if (getCartItemsCount() === 0) return (
@@ -51,6 +79,7 @@ const CartPage = () => {
         <Link className="btn rounded-pill" onClick={() => setCartOpen(false)} style={{ backgroundColor: "#4BCCF2", color: "#fff" }} href={"/productView"}>Return To Shop</Link>
       </div>
     );
+    
     return cartItems.map((item) => (
       <div key={item._id} className="grid grid-cols-3 mb-4">
         <div className="">
@@ -72,7 +101,9 @@ const CartPage = () => {
           </div>
           <h2 className="my-2"> ₹ {item.pprice}</h2>
         </div>
+        
       </div>
+      
     ));
   }
   return (

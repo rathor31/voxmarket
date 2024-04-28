@@ -208,7 +208,7 @@ const ProductDetail = () => {
             </div>
             <div className="flex">
               <span className="title-font font-medium text-2xl text-gray-900">
-                {productDetails.pprice}
+              ₹{productDetails.pprice}
               </span>
               <button
                 disabled={isInCart(productDetails)}

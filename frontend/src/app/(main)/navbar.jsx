@@ -44,7 +44,7 @@ const Navbar = () => {
               <div className="px-5 xl:px-12 py-2 flex w-full items-center ">
                 <a className="text-3xl font-bold font-heading" href="#">
                   <div className=" ">
-                    <img src="logo2.png" alt="" className="h-16" />
+                    <img src="vox-market (3).png" alt="" className="h-16" />
                   </div>
                 </a>
                 {/* Nav Links */}
