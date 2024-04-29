@@ -4,6 +4,7 @@ import useCartContext from '../../../context/CartContext';
 import Link from 'next/link';
 
 import { useParams } from 'next/navigation';
+import { IconShoppingCartX } from '@tabler/icons-react';
 
 const CartPage = () => {
 
@@ -29,17 +30,17 @@ const CartPage = () => {
   } = useVoiceContext();
 
   useEffect(() => {
-    if (finalTranscript.includes('clear cart')) {
+    if (finalTranscript.includes('clear cart') || finalTranscript.includes('clear card')) {
       const product = pluralize.singular(finalTranscript.split(' ').at(-1));
       // console.log((product), product);
       searchProduct(product);
       resetTranscript();
-      voiceResponse(`Here are some ${product}s for you`);
+      voiceResponse(`Cart has been cleared`);
       triggerModal(
-        `Here are some ${product} for you`,
-        'Please ask or select the product you want to buy',
+        `Cart has been cleared`,
+        '',
         true,
-        <IconShoppingCart size={50} />
+        <IconShoppingCartX size={50} />
       );
     }
   }, [finalTranscript])

@@ -364,8 +364,8 @@ export const VoiceProvider = ({ children }) => {
   useEffect(() => {
     if (!hasRun.current) {
       hasRun.current = true;
-      // SpeechRecognition.startListening({ continuous: true });
-      // voiceResponse('Welcome to Vox Market. What are you shopping today?');
+      SpeechRecognition.startListening({ continuous: true });
+      voiceResponse('Welcome to Vox Market. What are you shopping today?');
       triggerModal('Voice Assistant', 'I am listening');
     }
   }, [])
@@ -426,6 +426,11 @@ export const VoiceProvider = ({ children }) => {
       window.scrollTo(0, 0);
       resetTranscript();
       triggerModal('Moving to Top', '', true, <IconArrowUpBar size={50} />);
+    }
+    if (finalTranscript.includes('browse products') || finalTranscript.includes('view all products')) {
+      resetTranscript();
+      voiceResponse('Showing all products');
+      router.push('/productView');
     }
 
   }, [finalTranscript])

@@ -11,20 +11,13 @@ const Navbar = () => {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
   const {finalTranscript, voiceResponse, resetTranscript} = useVoiceContext();
   useEffect(() => {
-    if (finalTranscript.includes('open card')) {
-      voiceResponse('I am opening cart page for you.');
+    if (finalTranscript.includes('open card') || finalTranscript.includes('open card')) {
+      voiceResponse('Opening cart page.');
       setCartOpen(true);
-      resetTranscript();
-      
+      resetTranscript(); 
     }
-    else if (finalTranscript.includes('open cart')) {
-      voiceResponse('I am opening cart page for you.');
-      setCartOpen(true);
-      resetTranscript();
-      
-    }
-    else if (finalTranscript.includes('close cart')) {
-      voiceResponse('I am opening cart page for you.');
+    else if (finalTranscript.includes('close cart') || finalTranscript.includes('close card')) {
+      voiceResponse('Closing cart page');
       setCartOpen(false);
       resetTranscript();
     }

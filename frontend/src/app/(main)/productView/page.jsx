@@ -7,7 +7,7 @@ import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from
 import Link from 'next/link';
 import useCartContext from "@/context/CartContext";
 import useVoiceContext from "@/context/VoiceContext";
-import { IconMicrophone, IconShoppingCart } from "@tabler/icons-react";
+import { IconFilter, IconMicrophone, IconShoppingCart } from "@tabler/icons-react";
 import pluralize from "pluralize";
 import { useRouter } from "next/navigation";
 
@@ -106,7 +106,7 @@ const productView = () => {
         <IconShoppingCart size={50} />
       );
     }
-    else if (finalTranscript.includes('search product')) {
+    else if (finalTranscript.includes('search product') || finalTranscript.includes('browse product')) {
       const product = pluralize.singular(finalTranscript.split(' ').slice(2).join(' '));
       // console.log((product), product);
       searchProduct(product);
@@ -118,12 +118,41 @@ const productView = () => {
         true,
         <IconShoppingCart size={50} />
       );
-    } else if (finalTranscript.includes('View Product number '.toLowerCase())) {
+    } else if (finalTranscript.includes('filter by category')) {
+      const category = pluralize.singular(finalTranscript.split(' ').at(-1));
+      // console.log((product), product);
+      filterByCategory(category);
+      resetTranscript();
+      voiceResponse(`Here are some ${category}s for you`);
+      triggerModal(
+        `Here are some ${category} for you`,
+        '',
+        true,
+        <IconFilter size={50} />
+      );
+    }
+    else if (finalTranscript.includes('View Product number '.toLowerCase()) || finalTranscript.includes('Open Product number '.toLowerCase())) {
       console.log(finalTranscript);
       const product = parseInt(finalTranscript.split(' ').at(-1));
       // console.log((product), product);
       resetTranscript();
       router.push(`/productDetail/${productList[product - 1]._id}`);
+    }
+    else if (finalTranscript.includes('price lower than'.toLowerCase())) {
+      console.log(finalTranscript);
+      const price = parseInt(finalTranscript.split(' ').at(-1));
+      console.log(price);
+      filterByMaxPrice(price);
+      voiceResponse(`Here are some products with price less than ${price}`);
+      resetTranscript();
+    }
+    else if (finalTranscript.includes('price greater than'.toLowerCase())) {
+      console.log(finalTranscript);
+      const price = parseInt(finalTranscript.split(' ').at(-1));
+      console.log(price);
+      filterByMinPrice(price);
+      voiceResponse(`Here are some products with price greater than ${price}`);
+      resetTranscript();
     }
     else if (finalTranscript.includes('clear search')) {
       setProductList(masterList);
@@ -146,6 +175,13 @@ const productView = () => {
         console.log(data);
         setProductList(data);
         setMasterList(data);
+        const filters = [...new Set(data.map(product => (
+          product.features.map(feature => feature.name)
+        )).flat())]
+        console.log(filters);
+        setUniqueFilters(
+          data.map((product) => product.colors).flat().filter((value, index, self) => self.indexOf(value) === index)
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -156,19 +192,20 @@ const productView = () => {
     fetchProductData();
   }, []);
 
+
   const filterByCategory = (category) => {
-
-    const filteredProduct = mobileFiltersOpen.filter(product => product.category(category));
+    const filteredProduct = masterList.filter(product => product.category.toLowerCase().includes(category.toLowerCase()));
     setProductList(filteredProduct);
-
   }
 
-
-  const filterByColor = (color) => {
-
-    const filteredProduct = mobileFiltersOpen.filter(product => product.colors.includes(color));
+  const filterByMaxPrice = (price) => {
+    const filteredProduct = masterList.filter(product => product.pprice <= price);
     setProductList(filteredProduct);
+  }
 
+  const filterByMinPrice = (price) => {
+    const filteredProduct = masterList.filter(product => product.pprice >= price);
+    setProductList(filteredProduct);
   }
 
   const searchProduct = (query) => {
@@ -207,8 +244,8 @@ const productView = () => {
                 <p className="mt-5">Sold by : {product.seller.fname} {product.seller.lname}</p>
                 <div className="mt-2 mb-5 flex items-center justify-between">
                   <p>
-                    <span className="text-3xl font-bold text-slate-900">{product.pprice}</span>
-                    <span className="text-sm text-slate-900 line-through">$699</span>
+                    <span className="text-3xl font-bold text-slate-900">₹{product.pprice}</span>
+                    {/* <span className="text-sm text-slate-900 line-through">$699</span> */}
                   </p>
                   <div className="flex items-center">
                     <svg

@@ -63,6 +63,10 @@ const CartPage = () => {
       voiceResponse('I am closing cart page for you.');
       clearCart();
       resetTranscript();
+    }else if(finalTranscript.includes('checkout')){
+      voiceResponse('I am redirecting you to checkout page.');
+      setCartOpen(false);
+      resetTranscript();
     }
     
     
