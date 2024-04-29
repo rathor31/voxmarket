@@ -484,8 +484,16 @@ const SellerDashboard = () => {
                   </div>
                 </div>
               </div>
-              
             </div>
+
+            <div>
+              <iframe
+                width="640"
+                height="480"
+                src="https://charts.mongodb.com/charts-project-0-uhagpil/embed/charts?id=662f45d3-3906-466e-83bc-7cfdb44b932f&maxDataAge=3600&theme=light&autoRefresh=true"
+              ></iframe>
+            </div>
+
             <div className="text-blue-gray-600">
               <footer className="py-2">
                 <div className="flex w-full flex-wrap items-center justify-center gap-6 px-2 md:justify-between">

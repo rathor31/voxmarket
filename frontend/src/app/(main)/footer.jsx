@@ -5,17 +5,17 @@ const Footer = () => {
   return (
     <footer className="bg-gray-800 text-gray-300 py-8">
       <div className="container mx-auto flex flex-col lg:flex-row justify-between items-start lg:items-center">
-        <div className="mb-8 lg:mb-0 lg:mr-12">
-          <h2 className="text-lg font-semibold mb-4">Company Information</h2>
+        <div className="mb-8 lg:mb-0 ms-2 lg:mr-12">
+          <h2 className="text-lg font-semibold mb-4">Vox-Market</h2>
           <p className="mb-2">house no.-01 ,lucknow, india</p>
-          <p className="mb-2">harshitsahu@digipodium.com</p>
-          <p>9834474844</p>
+          <p className="mb-2">voxmarket47@gmail.com</p> 
+          <p>1234567890</p>
         </div>
         <div className="mb-8 lg:mb-0 lg:mr-12">
           <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
           <ul>
             <li>
-              <a href="#" className="hover:text-white">
+              <a href="/" className="hover:text-white">
                 Home
               </a>
             </li>
@@ -25,12 +25,12 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="hover:text-white">
+              <a href="/about" className="hover:text-white">
                 About Us
               </a>
             </li>
             <li>
-              <a href="#" className="hover:text-white">
+              <a href="/contact" className="hover:text-white">
                 Contact Us
               </a>
             </li>
