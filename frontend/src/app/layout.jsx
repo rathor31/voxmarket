@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -16,7 +17,9 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
       {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script> */}
       <Toaster position="top-right" />
-        {children}</body>
+        {children}
+        
+        </body>
     </html>
   );
 }
