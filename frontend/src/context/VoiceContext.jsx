@@ -432,9 +432,8 @@ export const VoiceProvider = ({ children }) => {
       voiceResponse('Showing all products');
       router.push('/productView');
     }
-
   }, [finalTranscript])
-
+  
   const voiceResponse = (text) => {
     speech.text = text;
     window.speechSynthesis.speak(speech);
