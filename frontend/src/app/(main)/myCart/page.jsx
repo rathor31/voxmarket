@@ -40,7 +40,7 @@ const MyCartPage = () => {
                                 <img src={`https://via.placeholder.com/50x50?text=${item.name}`} alt={item.name} className="w-12 h-12 rounded-full object-cover" />
                                 <div>
                                     <h2 className="text-lg font-semibold">{item.name}</h2>
-                                    <p className="text-gray-500">${item.price.toFixed(2)}</p>
+                                    <p className="text-gray-500">{item.price.toFixed(2)}Rs</p>
                                 </div>
                             </div>
                             <div className="flex items-center space-x-4">
@@ -69,7 +69,7 @@ const MyCartPage = () => {
                     ))}
                     <div className="mt-8 flex justify-end">
                         <div>
-                            <p className="text-xl font-semibold">Total: ${getTotalPrice().toFixed(2)}</p>
+                            <p className="text-xl font-semibold">Total: {getTotalPrice().toFixed(2)} Rs</p>
                         </div>
                     </div>
                         <div className='flex  justify-center'>
