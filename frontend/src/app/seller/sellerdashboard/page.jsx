@@ -111,6 +111,31 @@ const SellerDashboard = () => {
                   </a>
                 </li>
                 <li>
+                  <a className="" href="/seller/addProduct">
+                    <button
+                      className="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30 w-full flex items-center gap-4 px-4 capitalize"
+                      type="button"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                        className="w-5 h-5 text-inherit"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 011.5 18.375V5.625zM21 9.375A.375.375 0 0020.625 9h-7.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 00.375-.375v-1.5zm0 3.75a.375.375 0 00-.375-.375h-7.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 00.375-.375v-1.5zm0 3.75a.375.375 0 00-.375-.375h-7.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 00.375-.375v-1.5zM10.875 18.75a.375.375 0 00.375-.375v-1.5a.375.375 0 00-.375-.375h-7.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h7.5zM3.375 15h7.5a.375.375 0 00.375-.375v-1.5a.375.375 0 00-.375-.375h-7.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375zm0-3.75h7.5a.375.375 0 00.375-.375v-1.5A.375.375 0 0010.875 9h-7.5A.375.375 0 003 9.375v1.5c0 .207.168.375.375.375z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
+                        Add Product
+                      </p>
+                    </button>
+                  </a>
+                </li>
+                <li>
                   <a className="" href="#">
                     <button
                       className="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30 w-full flex items-center gap-4 px-4 capitalize"
@@ -459,8 +484,16 @@ const SellerDashboard = () => {
                   </div>
                 </div>
               </div>
-              
             </div>
+
+            <div>
+              <iframe
+                width="640"
+                height="480"
+                src="https://charts.mongodb.com/charts-project-0-uhagpil/embed/charts?id=662f45d3-3906-466e-83bc-7cfdb44b932f&maxDataAge=3600&theme=light&autoRefresh=true"
+              ></iframe>
+            </div>
+
             <div className="text-blue-gray-600">
               <footer className="py-2">
                 <div className="flex w-full flex-wrap items-center justify-center gap-6 px-2 md:justify-between">

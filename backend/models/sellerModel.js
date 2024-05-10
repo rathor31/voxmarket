@@ -5,6 +5,7 @@ const sellerSchema = new Schema({
     lname:String,
     email:String,
     password:String,
+    createdAt: {type : Date, default: Date.now}
 })
 
 module.exports= model('seller',sellerSchema)
