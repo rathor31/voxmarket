@@ -6,7 +6,7 @@ const reviewSchema = new Schema({
     rating:Number,
     review:String,
     images:Array,
-    createdAt:Date
+    createdAt:{type : Date, default: Date.now}
 })
 
 module.exports= model('review',reviewSchema)

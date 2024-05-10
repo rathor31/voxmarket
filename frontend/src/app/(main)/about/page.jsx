@@ -38,7 +38,7 @@ const About = () => {
         </p>
       </div>
       <div className="basis-[40%] py-10 px-10 ">
-        <img src="about.jpg" alt="" class="w-full" />
+        <img src="https://e7.pngegg.com/pngimages/576/977/png-clipart-web-development-online-marketplace-e-commerce-online-shopping-web-design-web-design-text-retail-thumbnail.png" alt="" class="w-full" />
       </div>
     </div>
     <div className="container mx-auto py-8">

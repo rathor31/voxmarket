@@ -3,9 +3,9 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-gray-300 py-8">
+    <footer className="bg-[#1E2852] text-gray-300 py-8">
       <div className="container mx-auto flex flex-col lg:flex-row justify-between items-start lg:items-center">
-        <div className="mb-8 lg:mb-0 ms-2 lg:mr-12">
+        <div className="mb-8  lg:mb-0 ms-2 lg:mr-12">
           <h2 className="text-lg font-semibold mb-4">Vox-Market</h2>
           <p className="mb-2">house no.-01 ,lucknow, india</p>
           <p className="mb-2">voxmarket47@gmail.com</p> 
@@ -83,7 +83,7 @@ const Footer = () => {
         <div>
           <h2 className="text-lg font-semibold mb-4">Newsletter</h2>
           <p className="mb-2">Subscribe to our newsletter for updates.</p>
-          <form className="flex flex-col lg:flex-row">
+          <form className="flex flex-col lg:flex-row me-2">
             <input
               type="email"
               placeholder="Your email"

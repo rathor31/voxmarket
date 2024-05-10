@@ -1,5 +1,6 @@
 "use client";
 import Navbar from "./(main)/navbar";
+import Footer from "./(main)/footer";
 import React, { useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -414,7 +415,9 @@ const Home = () => {
           </div>
         </section> */}
         
+      
       </>
+      <Footer/>
       
     </>
     
