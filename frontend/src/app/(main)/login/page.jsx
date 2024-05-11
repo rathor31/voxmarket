@@ -1,9 +1,16 @@
 "use client";
+import useAppContext from "@/context/AppContext";
 import { useFormik } from "formik";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
 const Login = () => {
+
+  const { setLoggedIn, setCurrentUser } = useAppContext();
+
+  const router = useRouter();
+
   const addUserSchema = Yup.object().shape({});
 
   const addUserForm = useFormik({
@@ -22,7 +29,7 @@ const Login = () => {
         },
       });
       console.log(res.status);
-      
+
       if (res.status === 200) {
         toast.success("Login Successfull");
         const data = await res.json();
@@ -30,14 +37,13 @@ const Login = () => {
         sessionStorage.setItem('user', JSON.stringify(data))
         setLoggedIn(true);
         action.resetForm();
-        router.push("/");
+        router.push("/productView");
       } else if (res.status === 401) {
         toast.error("Invalid Credentials");
-      }else{
+      } else {
         toast.error("Some error occured");
       }
     },
-
     validationSchema: addUserSchema,
   });
 

@@ -6,6 +6,7 @@ const orderSchema = new Schema({
     paymentDetails: Object,
     intentId: {type : String, unique: true},
     status: { type: String, default: 'placed' },
+    mode: { type: String, default: 'online' },
     createdAt: Date
 
 })
