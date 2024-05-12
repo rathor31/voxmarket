@@ -486,7 +486,7 @@ export const VoiceProvider = ({ children }) => {
     const synth = window.speechSynthesis;
     const voices = synth.getVoices();
     setVoices(voices);
-    console.log(voices);
+    // console.log(voices);
     speech.voice = voices[12];
   }
 

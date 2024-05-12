@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router();
 const Model = require('../models/userModel');
@@ -105,4 +104,3 @@ router.post('/authenticate', (req, res) => {
 
 
 module.exports = router;
-

@@ -28,6 +28,7 @@ const ThankYou = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          user: currentUser._id,
           items: cartItems,
           paymentDetails: paymentDetails,
           intentId: params.get("payment_intent")
