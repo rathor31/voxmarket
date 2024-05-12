@@ -387,7 +387,7 @@ export const VoiceProvider = ({ children }) => {
     if (finalTranscript.includes('top listening')) {
       voiceResponse('Okay, I will stop listening now');
       SpeechRecognition.stopListening();
-      triggerModal('Voice Assistant', 'Tumhare Kahne se chalunga kya??', false, <IconMicrophoneOff size={50} />);
+      triggerModal('Voice Assistant', 'Good Bye! Have a nice day!', false, <IconMicrophoneOff size={50} />);
     }
     if (finalTranscript.includes('hello box')) {
       resetTranscript();

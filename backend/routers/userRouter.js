@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 const express = require('express');
 const router = express.Router();
 const Model = require('../models/userModel');
@@ -106,4 +105,4 @@ router.post('/authenticate', (req, res) => {
 
 
 module.exports = router;
->>>>>>> d0d956d38ca2379778fb900a9a3e08898ef2b630
+

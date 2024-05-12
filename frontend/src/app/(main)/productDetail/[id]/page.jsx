@@ -36,7 +36,8 @@ const ProductDetail = () => {
   useEffect(() => {
     if (
       finalTranscript.includes("add to cart") ||
-      finalTranscript.includes("add to card")
+      finalTranscript.includes("add to card") ||
+      finalTranscript.includes("add two card")
     ) {
       voiceResponse(`${productDetails.pname} added to cart`);
       addItemToCart(productDetails);
