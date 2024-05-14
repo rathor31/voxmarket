@@ -24,8 +24,8 @@ const About = () => {
     }
   ];
   return (<div>
-    <div className="min-h-screen flex items-center justify-center bg-white-800 ">
-      <div className=" max-w-2xl p-8 bg-green-50 shadow-md rounded-md">
+    <div className="min-h-screen mt-8 flex items-center justify-center gap-10 bg-white-800 ">
+      <div className=" max-w-2xl p-8 bg-purple-50 shadow-md rounded-md">
         <h1 className="text-2xl font-bold mb-4">Voice-activated shopping: making your experience more intuitive and effortless..</h1>
         <p className="mb-4">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget
@@ -37,8 +37,8 @@ const About = () => {
           pharetra auctor est, nec bibendum lacus.
         </p>
       </div>
-      <div className="basis-[40%] py-10 px-10 ">
-        <img src="https://e7.pngegg.com/pngimages/576/977/png-clipart-web-development-online-marketplace-e-commerce-online-shopping-web-design-web-design-text-retail-thumbnail.png" alt="" class="w-full" />
+      <div className="basis-[40%] py-10 px-10 bg-purple-50">
+        <img src="https://www.pngall.com/wp-content/uploads/8/Super-Market-PNG-Picture.png" alt="" class="w-full" />
       </div>
     </div>
     <div className="container mx-auto py-8">
