@@ -366,7 +366,7 @@ export const VoiceProvider = ({ children }) => {
       hasRun.current = true;
       // SpeechRecognition.startListening({ continuous: true });
       // voiceResponse('Welcome to Vox Market. What are you shopping today?');
-      triggerModal('Voice Assistant', 'I am listening');
+      // triggerModal('Voice Assistant', 'I am listening');
     }
   }, [])
 

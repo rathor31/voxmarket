@@ -7,6 +7,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import PaymentGateway from "./PaymentGateway";
 import useVoiceContext from "@/context/VoiceContext";
 import { useRouter } from "next/navigation";
+import { IconShoppingCart } from "@tabler/icons-react";
 
 const appearance = {
   theme: "day",
@@ -48,6 +49,7 @@ const CheckOut = () => {
 
   useEffect(() => {
     if (finalTranscript.includes('cash on delivery')) {
+      console.log('Cash on Delivery');
       saveOrder();
       resetTranscript();
       voiceResponse(`Your order has been placed successfully by Cash on Delivery. Thank you for shopping with us`);
@@ -58,7 +60,7 @@ const CheckOut = () => {
         <IconShoppingCart size={50} />
       );
     }
-  }, [])
+  }, [finalTranscript])
   
 
   const [currentUser, setCurrentUser] = useState(
