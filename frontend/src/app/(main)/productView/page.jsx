@@ -450,12 +450,21 @@ const productView = () => {
                 <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
                   {subCategories.map((category) => (
                     <li key={category.name}>
-                      <a href={category.href}>{category.name}</a>
+                      <a onClick={e => {
+                        e.preventDefault();
+                        filterByCategory(category.name);
+                      }} href={category.href}>{category.name}</a>
                     </li>
                   ))}
+                    <li>
+                      <a href="#" onClick={e => {
+                        e.preventDefault();
+                        fetchProductData();
+                      }}>Reset Filter</a>
+                    </li>
                 </ul>
 
-                {filters.map((section) => (
+                {/* {filters.map((section) => (
                   <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
                     {({ open }) => (
                       <>
@@ -496,7 +505,7 @@ const productView = () => {
                       </>
                     )}
                   </Disclosure>
-                ))}
+                ))} */}
               </form>
 
               {/* Product grid */}

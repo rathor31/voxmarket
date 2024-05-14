@@ -7,7 +7,7 @@ const orderSchema = new Schema({
     intentId: {type : String, unique: true},
     status: { type: String, default: 'placed' },
     mode: { type: String, default: 'online' },
-    createdAt: Date
+    createdAt: {type : Date, default: Date.now},
 
 })
 
