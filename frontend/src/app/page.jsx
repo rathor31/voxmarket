@@ -35,10 +35,10 @@ const Home = () => {
         modules={[Autoplay, Pagination]}
         className="mySwiper h-96 w-full "
       >
-        <SwiperSlide style={{backgroundSize:"cover"}} className="bg-[url('https://i.pinimg.com/1200x/cb/31/87/cb318789eecdbe77c9375cf78ba0f25e.jpg')]"></SwiperSlide>
+        <SwiperSlide style={{backgroundSize:"cover"}} className="bg-[url('https://wallpaperaccess.com/full/1448067.jpg')]"></SwiperSlide>
 
-        <SwiperSlide  style={{backgroundSize:"cover"}} className="bg-[url('https://i.pinimg.com/originals/f4/41/d4/f441d44a4b57c927fdc427a746312cce.jpg')]"></SwiperSlide>
-        <SwiperSlide style={{backgroundSize:"cover"}} className=" bg-[url('https://www.shutterstock.com/image-photo/cropped-indoor-low-section-shot-600nw-2198383639.jpg')]"></SwiperSlide>
+        <SwiperSlide  style={{backgroundSize:"cover"}} className="bg-[url('https://cdn.thecoolist.com/wp-content/uploads/2021/05/Men-clothing-websites.jpg')]"></SwiperSlide>
+        <SwiperSlide style={{backgroundSize:"cover"}} className=" bg-[url('https://wallpaperaccess.com/full/5633830.jpg')]"></SwiperSlide>
         
       </Swiper>
         </section>

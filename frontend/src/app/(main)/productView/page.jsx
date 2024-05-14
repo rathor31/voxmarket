@@ -19,8 +19,8 @@ const sortOptions = [
   { name: 'Price: High to Low', href: '#', current: false },
 ]
 const subCategories = [
-  { name: 'Totes', href: '#' },
-  { name: 'Backpacks', href: '#' },
+  { name: 'Cloth', href: '/cloth' },
+  { name: 'Tech', href: '/TECH' },
   { name: 'Travel Bags', href: '#' },
   { name: 'Hip Bags', href: '#' },
   { name: 'Laptop Sleeves', href: '#' },
@@ -318,7 +318,7 @@ const productView = () => {
       <div>
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} >
-          <Dialog as="div" className="relative z-40 lg:hidden" onClose={setMobileFiltersOpen}>
+          <Dialog as="div" className="relative z-18 lg:hidden" onClose={setMobileFiltersOpen}>
             <Transition.Child
 
               enter="transition-opacity ease-linear duration-300"
