@@ -6,6 +6,7 @@ import useCartContext from "@/context/CartContext";
 import { Elements } from '@stripe/react-stripe-js';
 import PaymentGateway from "./PaymentGateway";
 import useVoiceContext from "@/context/VoiceContext";
+import { useRouter } from "next/navigation";
 
 const appearance = {
   theme: "day",
@@ -29,7 +30,8 @@ const CheckOut = () => {
   // console.log(stripePromise);
   const [clientSecret, setClientSecret] = useState("");
   const [tutorDetails, setTutorDetails] = useState(null);
-  const { getCartTotal, cartItems } = useCartContext();
+  const { getCartTotal, cartItems, clearCart } = useCartContext();
+  const router = useRouter();
 
   const {
     transcript,
@@ -97,6 +99,10 @@ const CheckOut = () => {
     setClientSecret(data.clientSecret);
   };
 
+  const generateRandomStringId = () => {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  }
+
   const saveOrder = async () => {
     
     const response = await fetch(
@@ -110,13 +116,15 @@ const CheckOut = () => {
           user: currentUser._id,
           items: cartItems,
           paymentDetails: {amount : getCartTotal()},
-          mode: 'cash'
+          mode: 'cash',
+          intentId: generateRandomStringId()
         }),
       }
     );
     console.log(response.status); 
     if (response.status === 200) {
       clearCart();
+      router.push('/');
     }
   };
 
