@@ -1,10 +1,11 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as Yup from "yup";
 import { loadStripe } from "@stripe/stripe-js";
 import useCartContext from "@/context/CartContext";
 import { Elements } from '@stripe/react-stripe-js';
 import PaymentGateway from "./PaymentGateway";
+import useVoiceContext from "@/context/VoiceContext";
 
 const appearance = {
   theme: "day",
@@ -29,6 +30,35 @@ const CheckOut = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [tutorDetails, setTutorDetails] = useState(null);
   const { getCartTotal, cartItems } = useCartContext();
+
+  const {
+    transcript,
+    resetTranscript,
+    interpretVoiceCommand,
+    fillInputUsingVoice,
+    performActionUsingVoice,
+    finalTranscript,
+    voiceResponse,
+    voices,
+    triggerModal,
+    checkExistenceInTranscript
+  } = useVoiceContext();
+
+  useEffect(() => {
+    if (finalTranscript.includes('cash on delivery')) {
+      saveOrder();
+      resetTranscript();
+      voiceResponse(`Your order has been placed successfully by Cash on Delivery. Thank you for shopping with us`);
+      triggerModal(
+        'Order Placed',
+        'Your order has been placed successfully by Cash on Delivery. Thank you for shopping with us',
+        true,
+        <IconShoppingCart size={50} />
+      );
+    }
+  }, [])
+  
+
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem('user'))
   )
@@ -65,6 +95,29 @@ const CheckOut = () => {
     const data = await res.json();
     console.log(data);
     setClientSecret(data.clientSecret);
+  };
+
+  const saveOrder = async () => {
+    
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/order/add`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user: currentUser._id,
+          items: cartItems,
+          paymentDetails: {amount : getCartTotal()},
+          mode: 'cash'
+        }),
+      }
+    );
+    console.log(response.status); 
+    if (response.status === 200) {
+      clearCart();
+    }
   };
 
   return (
@@ -356,6 +409,7 @@ const CheckOut = () => {
             <button onClick={getPaymentIntent} className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">
               Proceed To Pay
             </button>
+            <button onClick={saveOrder}>Buy Cash on Delivery</button>
 
             {
                 clientSecret && (
