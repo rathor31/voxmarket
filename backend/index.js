@@ -8,6 +8,7 @@ const contactRouter = require('./routers/contactRouter');
 const utilRouter = require('./routers/utilRouter');
 const reviewRouter = require('./routers/reviewRouter');
 const orderRouter = require('./routers/orderRouter');
+const feedbackRouter = require('./routers/feedbackRouter');
 
 const cors = require('cors');
 const app = express();
@@ -31,6 +32,7 @@ app.use('/review', reviewRouter);
 app.use('/contact', contactRouter);
 app.use('/util', utilRouter);
 app.use('/order', orderRouter);
+app.use('/feedback', feedbackRouter);
 
 app.use(express.static('./static/uploads'));
 
