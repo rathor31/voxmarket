@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import useCartContext from '../../context/CartContext';
 import Link from 'next/link';
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import useVoiceContext from '@/context/VoiceContext';
 
 const CartPage = () => {
@@ -15,6 +15,7 @@ const CartPage = () => {
     toast.success("Item added In Your Cart")
   }
   const [productList, setproductList] = useState([]);
+  const router = useRouter();
 
   const fetchUserData = async () => {
     const res = await fetch('http://localhost:5000/product/getall');
@@ -66,6 +67,7 @@ const CartPage = () => {
     }else if(finalTranscript.includes('check out')){
       voiceResponse('I am redirecting you to checkout page.');
       setCartOpen(false);
+      router.push('/user/checkout');
       resetTranscript();
     }
     
