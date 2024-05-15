@@ -31,6 +31,22 @@ const ManageProduct = () => {
     fetchOrderData();
   }, []);
 
+  const deleteOrder = (id) => {
+    fetch("http://localhost:5000/order/delete/" + id, { method: "DELETE" })
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success("Successfully deleted!");
+          fetchOrderData();
+        } else {
+          toast.error("Some error occured");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Some error occured");
+      });
+  };
+
   return (
     <>
       <div className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md bg-clip-border rounded-xl">
@@ -113,17 +129,7 @@ const ManageProduct = () => {
                     </p>
                   </td>
 
-                  <td className="p-4 border gray-200">
-                    <button
-                      type="button"
-                      className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 border gray-200"
-                      onClick={() => {
-                        deleteProduct(product._id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </td>
+                 
                   <td className="p-4 border gray-200">
                     <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
                       {order.paymentDetails.receipt_email}
@@ -133,6 +139,17 @@ const ManageProduct = () => {
                     <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
                       {order.items.pname}
                     </p>
+                  </td>
+                  <td className="p-4 border gray-200">
+                    <button
+                      type="button"
+                      className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 border gray-200"
+                      onClick={() => {
+                        deleteOrder(order._id);
+                      }}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               </tbody>

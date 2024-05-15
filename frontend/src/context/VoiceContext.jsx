@@ -121,7 +121,11 @@ const pageDetails = [
   {
     pageName: 'MyCart',
     pagePath: '/admin/adminprofile'
-  }
+  },
+  {
+    pageName: 'cheakout',
+    pagePath: '/user/cheakout'
+  },
 ]
 
 const speech = new SpeechSynthesisUtterance();
@@ -205,12 +209,13 @@ export const VoiceProvider = ({ children }) => {
       }
     },
     {
-      command: 'open collection page',
+      command: 'open cheak out page',
       callback: (pageName) => {
         console.log('Opening page: ', pageName);
-        voicePageNavigator('productView')
+        voicePageNavigator('cheakout')
       }
     },
+    
     {
       command: 'open contact page',
       callback: (pageName) => {

@@ -54,28 +54,7 @@ const About = () => {
     },
     validationSchema: feedbackSchema,
   });
-  const feedbacks = [
-    {
-      id: 1,
-      name: 'John Doe',
-      feedback: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis euismod tellus id justo tristique, a cursus lorem commodo.'
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      feedback: 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec nec sagittis dui.'
-    },
-    {
-      id: 3,
-      name: 'Alice Johnson',
-      feedback: 'Nullam et elit eget lectus euismod fermentum in a tellus. Fusce ultrices euismod odio, vel egestas urna commodo in.'
-    },
-    {
-      id: 4,
-      name: 'Bob Brown',
-      feedback: 'Vestibulum et laoreet elit, vitae iaculis nulla. Morbi eget lobortis dui. In consequat odio at tellus dictum volutpat.'
-    }
-  ];
+ 
   return (
   <div>
     <div className="mt-10 flex items-center justify-center gap-10 bg-white-800 ">
